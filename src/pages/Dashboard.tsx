@@ -157,9 +157,9 @@ const Dashboard = () => {
   if (loading || !profile) return null;
 
   return (
-    <div className="min-h-screen liquid-bg pb-20">
+    <div className="min-h-screen liquid-bg pb-20" style={{ position: 'relative', zIndex: 1 }}>
       {/* Header */}
-      <div className="bg-gradient-to-r from-primary to-secondary p-6 text-primary-foreground glow-primary">
+      <div className="bg-gradient-to-r from-primary to-secondary p-6 text-primary-foreground glow-primary" style={{ pointerEvents: 'auto', position: 'relative', zIndex: 2 }}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-background/20 backdrop-blur-lg flex items-center justify-center text-xl font-bold">
@@ -173,7 +173,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="p-6 space-y-6">
+      <div className="p-6 space-y-6" style={{ position: 'relative', zIndex: 2, pointerEvents: 'auto' }}>
         {/* Balance Card */}
         <Card className="bg-gradient-to-br from-card to-card/80 backdrop-blur-lg border-border/50 p-6 glow-primary animate-fade-in">
           <div className="space-y-4">
@@ -216,38 +216,42 @@ const Dashboard = () => {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-4">
-          <Button
+          <button
+            type="button"
             onClick={() => navigate("/referrals")}
-            className="h-24 flex flex-col gap-2 bg-card/80 hover:bg-card border-border/50"
-            variant="outline"
+            className="h-24 flex flex-col gap-2 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <Gift className="w-6 h-6 text-primary" />
             <span className="text-sm font-semibold">Refer & Earn</span>
-          </Button>
-          <Button
+          </button>
+          <button
+            type="button"
             onClick={() => navigate("/withdraw")}
-            className="h-24 flex flex-col gap-2 bg-card/80 hover:bg-card border-border/50"
-            variant="outline"
+            className="h-24 flex flex-col gap-2 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <DollarSign className="w-6 h-6 text-secondary" />
             <span className="text-sm font-semibold">Withdraw</span>
-          </Button>
-          <Button
+          </button>
+          <button
+            type="button"
             onClick={() => navigate("/tasks")}
-            className="h-24 flex flex-col gap-2 bg-card/80 hover:bg-card border-border/50"
-            variant="outline"
+            className="h-24 flex flex-col gap-2 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <CheckCircle2 className="w-6 h-6 text-green-500" />
             <span className="text-sm font-semibold">Tasks</span>
-          </Button>
-          <Button
+          </button>
+          <button
+            type="button"
             onClick={() => navigate("/history")}
-            className="h-24 flex flex-col gap-2 bg-card/80 hover:bg-card border-border/50"
-            variant="outline"
+            className="h-24 flex flex-col gap-2 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <History className="w-6 h-6 text-blue-500" />
             <span className="text-sm font-semibold">History</span>
-          </Button>
+          </button>
         </div>
 
         {/* Referral Card */}

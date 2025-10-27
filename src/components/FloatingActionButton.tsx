@@ -21,21 +21,26 @@ export const FloatingActionButton = () => {
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 z-40" onClick={() => setIsOpen(false)} />
+        <div 
+          className="fixed inset-0 bg-black/50 z-40" 
+          onClick={() => setIsOpen(false)}
+          style={{ pointerEvents: 'auto' }}
+        />
       )}
 
       <div className="fixed bottom-6 right-6 z-50">
         {isOpen && (
-          <Card className="absolute bottom-16 right-0 p-2 bg-card/95 backdrop-blur-lg border-border/50 shadow-lg animate-fade-in mb-2">
+          <Card className="absolute bottom-16 right-0 p-2 bg-card/95 backdrop-blur-lg border-border/50 shadow-lg animate-fade-in mb-2" style={{ pointerEvents: 'auto', zIndex: 60 }}>
             <div className="flex flex-col gap-2">
               {menuItems.map((item, index) => (
-                <Button
+                <button
                   key={index}
-                  variant="ghost"
-                  className="justify-start gap-3 hover:bg-muted"
+                  type="button"
+                  className="flex items-center justify-start gap-3 hover:bg-muted px-4 py-2 rounded-md transition-colors touch-manipulation cursor-pointer min-h-[44px]"
+                  style={{ WebkitTapHighlightColor: 'transparent' }}
                   onClick={() => {
                     if (item.external) {
-                      window.open(item.path, "_blank");
+                      window.open(item.path, "_blank", "noopener,noreferrer");
                     } else {
                       navigate(item.path);
                     }
@@ -44,19 +49,21 @@ export const FloatingActionButton = () => {
                 >
                   <item.icon className="w-5 h-5" />
                   <span>{item.label}</span>
-                </Button>
+                </button>
               ))}
             </div>
           </Card>
         )}
 
-        <Button
-          size="icon"
+        <button
+          type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="w-14 h-14 rounded-full bg-gradient-to-r from-primary to-secondary shadow-lg glow-primary hover:opacity-90"
+          className="w-14 h-14 rounded-full bg-gradient-to-r from-primary to-secondary shadow-lg glow-primary hover:opacity-90 flex items-center justify-center transition-all active:scale-95 touch-manipulation cursor-pointer"
+          style={{ WebkitTapHighlightColor: 'transparent', pointerEvents: 'auto', zIndex: 60 }}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </Button>
+        </button>
       </div>
     </>
   );

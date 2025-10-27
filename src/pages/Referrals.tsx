@@ -140,12 +140,14 @@ const Referrals = () => {
           <p className="text-sm text-muted-foreground mb-4">
             Increase your earnings per referral by upgrading to premium tiers
           </p>
-          <Button
+          <button
+            type="button"
             onClick={() => navigate("/upgrade")}
-            className="w-full bg-gradient-to-r from-primary to-secondary"
+            className="w-full bg-gradient-to-r from-primary to-secondary text-primary-foreground font-medium py-2 px-4 rounded-lg hover:opacity-90 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             View Upgrade Options
-          </Button>
+          </button>
         </Card>
 
         {/* How It Works */}
