@@ -55,7 +55,18 @@ const Withdraw = () => {
   const handleWithdraw = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const amount = Number(withdrawData.amount);
+    const amount = Math.floor(Number(withdrawData.amount));
+    
+    // Validate whole numbers only (Naira)
+    if (!Number.isInteger(Number(withdrawData.amount)) || withdrawData.amount.includes('.')) {
+      toast.error("Please enter whole numbers only (no decimals). Amount must be in Naira (₦).");
+      return;
+    }
+
+    if (amount < 1) {
+      toast.error("Amount must be at least ₦1");
+      return;
+    }
     
     // When toggle is OFF (requireReferrals = false), enforce minimum and referral requirement
     if (!requireReferrals) {
@@ -90,23 +101,18 @@ const Withdraw = () => {
 
       if (error) throw error;
 
-      // Create transaction
+      // Create transaction as PENDING (no balance deduction yet)
       await supabase.from("transactions").insert({
         user_id: session?.user.id,
         type: "debit",
         amount,
-        description: `Withdrawal to ${withdrawData.bankName}`,
+        description: `Withdrawal request to ${withdrawData.bankName}`,
         status: "pending",
       });
 
-      // Update balance
-      const newBalance = profile.balance - amount;
-      await supabase
-        .from("profiles")
-        .update({ balance: newBalance })
-        .eq("id", session?.user.id);
+      // DO NOT update balance - wait for admin approval
 
-      toast.success("Withdrawal request submitted!");
+      toast.success("Withdrawal request submitted! Awaiting approval.");
       
       // If toggle is ON, redirect to gateway activation
       if (requireReferrals) {
@@ -180,18 +186,21 @@ const Withdraw = () => {
 
             <div className="space-y-2">
               <Label htmlFor="amount">
-                Amount {!requireReferrals && `(Min: ₦${MINIMUM_WITHDRAW.toLocaleString()})`}
+                Amount (₦) {!requireReferrals && `(Min: ₦${MINIMUM_WITHDRAW.toLocaleString()})`}
               </Label>
               <Input
                 id="amount"
                 type="number"
                 required
-                min={requireReferrals ? 0.01 : MINIMUM_WITHDRAW}
-                max={profile.balance}
+                step="1"
+                min={requireReferrals ? 1 : MINIMUM_WITHDRAW}
+                max={Math.floor(profile.balance)}
                 value={withdrawData.amount}
                 onChange={(e) => setWithdrawData({ ...withdrawData, amount: e.target.value })}
+                placeholder="Enter amount (whole numbers only)"
                 className="bg-background/50"
               />
+              <p className="text-xs text-muted-foreground">Enter whole numbers only. No decimals allowed.</p>
             </div>
 
             <div className="space-y-2">

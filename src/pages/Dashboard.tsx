@@ -6,6 +6,8 @@ import { Eye, EyeOff, Copy, Gift, DollarSign, CheckCircle2, History } from "luci
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { FloatingActionButton } from "@/components/FloatingActionButton";
+import { PromotionsCarousel } from "@/components/PromotionsCarousel";
+import { ArrowRight } from "lucide-react";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -159,133 +161,153 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen liquid-bg pb-20" style={{ position: 'relative', zIndex: 1 }}>
       {/* Header */}
-      <div className="bg-gradient-to-r from-primary to-secondary p-6 text-primary-foreground glow-primary" style={{ pointerEvents: 'auto', position: 'relative', zIndex: 2 }}>
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-background/20 backdrop-blur-lg flex items-center justify-center text-xl font-bold">
-              {profile.full_name?.charAt(0) || "U"}
-            </div>
-            <div>
-              <p className="text-sm opacity-90">Hi, {profile.full_name} 👋</p>
-              <p className="font-semibold">Welcome back!</p>
-            </div>
+      <div className="bg-gradient-to-r from-primary to-secondary p-4 text-primary-foreground glow-primary" style={{ pointerEvents: 'auto', position: 'relative', zIndex: 2 }}>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-background/20 backdrop-blur-lg flex items-center justify-center text-lg font-bold">
+            {profile.full_name?.charAt(0) || "U"}
+          </div>
+          <div>
+            <p className="text-xs opacity-90">Hi, {profile.full_name} 👋</p>
+            <p className="text-sm font-semibold">Welcome back!</p>
           </div>
         </div>
       </div>
 
-      <div className="p-6 space-y-6" style={{ position: 'relative', zIndex: 2, pointerEvents: 'auto' }}>
+      <div className="space-y-4 py-4" style={{ position: 'relative', zIndex: 2, pointerEvents: 'auto' }}>
         {/* Balance Card */}
-        <Card className="bg-gradient-to-br from-card to-card/80 backdrop-blur-lg border-border/50 p-6 glow-primary animate-fade-in">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <p className="text-muted-foreground">Your Balance</p>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setShowBalance(!showBalance)}
-                className="hover:bg-muted"
-              >
-                {showBalance ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
-              </Button>
+        <div className="px-4">
+          <Card className="bg-gradient-to-br from-card to-card/80 backdrop-blur-lg border-border/50 p-4 glow-primary animate-fade-in">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-muted-foreground">Your Balance</p>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setShowBalance(!showBalance)}
+                  className="hover:bg-muted h-8 w-8"
+                >
+                  {showBalance ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                </Button>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold gradient-text">
+                {showBalance ? `₦${Number(profile.balance || 0).toLocaleString()}.00` : "****"}
+              </h2>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold gradient-text">
-              {showBalance ? `₦${Number(profile.balance || 0).toLocaleString()}.00` : "****"}
-            </h2>
-          </div>
-        </Card>
+          </Card>
+        </div>
 
         {/* Mini Claim Card */}
-        <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20 p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-start gap-3">
-              <Gift className="w-5 h-5 text-secondary mt-0.5 flex-shrink-0" />
-              <div className="text-sm">
-                <p className="font-semibold text-foreground">Claim ₦15,000 Every 5 Minutes!</p>
-                <p className="text-muted-foreground">{canClaim ? "Free money waiting!" : `Next claim: ${getTimeRemaining()}`}</p>
+        <div className="px-4">
+          <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20 p-3">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-start gap-2 flex-1 min-w-0">
+                <Gift className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
+                <div className="text-xs min-w-0">
+                  <p className="font-semibold text-foreground">Claim ₦15,000 Every 5 Minutes!</p>
+                  <p className="text-muted-foreground truncate">{canClaim ? "Free money waiting!" : `Next claim: ${getTimeRemaining()}`}</p>
+                </div>
               </div>
+              <Button
+                onClick={handleClaim}
+                disabled={!canClaim || claiming}
+                className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-xs px-3 py-1 h-auto flex-shrink-0"
+              >
+                {claiming ? "Claiming..." : canClaim ? "Claim Now" : getTimeRemaining()}
+              </Button>
             </div>
-            <Button
-              onClick={handleClaim}
-              disabled={!canClaim || claiming}
-              className="bg-gradient-to-r from-primary to-secondary hover:opacity-90"
-            >
-              {claiming ? "Claiming..." : canClaim ? "Claim Now" : getTimeRemaining()}
-            </Button>
-          </div>
-        </Card>
+          </Card>
+        </div>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-2 gap-4">
-          <button
-            type="button"
-            onClick={() => navigate("/referrals")}
-            className="h-24 flex flex-col gap-2 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
-          >
-            <Gift className="w-6 h-6 text-primary" />
-            <span className="text-sm font-semibold">Refer & Earn</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate("/withdraw")}
-            className="h-24 flex flex-col gap-2 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
-          >
-            <DollarSign className="w-6 h-6 text-secondary" />
-            <span className="text-sm font-semibold">Withdraw</span>
-          </button>
+        {/* Promotions Carousel */}
+        <PromotionsCarousel />
+
+        {/* View Daily Tasks Link */}
+        <div className="px-4">
           <button
             type="button"
             onClick={() => navigate("/tasks")}
-            className="h-24 flex flex-col gap-2 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
+            className="w-full flex items-center justify-center gap-2 text-sm text-primary hover:underline py-2"
           >
-            <CheckCircle2 className="w-6 h-6 text-green-500" />
-            <span className="text-sm font-semibold">Tasks</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate("/history")}
-            className="h-24 flex flex-col gap-2 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
-          >
-            <History className="w-6 h-6 text-blue-500" />
-            <span className="text-sm font-semibold">History</span>
+            View Daily Tasks <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Referral Card */}
-        <Card className="bg-card/80 backdrop-blur-lg border-border/50 p-6">
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
+        {/* Quick Actions */}
+        <div className="px-4">
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => navigate("/referrals")}
+              className="h-20 flex flex-col gap-1.5 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
               <Gift className="w-5 h-5 text-primary" />
-              <h3 className="font-semibold">Referral Program</h3>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-sm text-muted-foreground">Total Referrals</p>
-                <p className="text-2xl font-bold text-primary">{profile.total_referrals || 0}</p>
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Earnings/Referral</p>
-                <p className="text-2xl font-bold text-secondary">₦{Number(profile.referral_earnings || 15000).toLocaleString()}</p>
-              </div>
-            </div>
-            <div className="bg-muted/50 p-4 rounded-lg space-y-2">
-              <p className="text-sm text-muted-foreground">Your Referral Link</p>
-              <div className="flex items-center gap-2">
-                <code className="flex-1 text-xs font-bold text-foreground break-all">{window.location.origin}/auth?ref={profile.referral_code}</code>
-                <Button
-                  size="sm"
-                  onClick={copyReferralCode}
-                  className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 flex-shrink-0"
-                >
-                  <Copy className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
+              <span className="text-xs font-semibold">Refer & Earn</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/withdraw")}
+              className="h-20 flex flex-col gap-1.5 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
+              <DollarSign className="w-5 h-5 text-secondary" />
+              <span className="text-xs font-semibold">Withdraw</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/tasks")}
+              className="h-20 flex flex-col gap-1.5 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
+              <CheckCircle2 className="w-5 h-5 text-green-500" />
+              <span className="text-xs font-semibold">Tasks</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/history")}
+              className="h-20 flex flex-col gap-1.5 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
+              <History className="w-5 h-5 text-blue-500" />
+              <span className="text-xs font-semibold">History</span>
+            </button>
           </div>
-        </Card>
+        </div>
+
+        {/* Referral Card */}
+        <div className="px-4">
+          <Card className="bg-card/80 backdrop-blur-lg border-border/50 p-4">
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <Gift className="w-4 h-4 text-primary" />
+                <h3 className="text-sm font-semibold">Referral Program</h3>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <p className="text-xs text-muted-foreground">Total Referrals</p>
+                  <p className="text-xl font-bold text-primary">{profile.total_referrals || 0}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">Earnings/Referral</p>
+                  <p className="text-xl font-bold text-secondary">₦{Number(profile.referral_earnings || 15000).toLocaleString()}</p>
+                </div>
+              </div>
+              <div className="bg-muted/50 p-3 rounded-lg">
+                <p className="text-xs text-muted-foreground mb-1.5">Your Referral Link</p>
+                <div className="flex items-center gap-2">
+                  <code className="flex-1 text-[10px] font-bold text-foreground truncate">{window.location.origin}/auth?ref={profile.referral_code}</code>
+                  <Button
+                    size="sm"
+                    onClick={copyReferralCode}
+                    className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 flex-shrink-0 h-7 w-7 p-0"
+                  >
+                    <Copy className="w-3 h-3" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
       </div>
 
       <FloatingActionButton />
