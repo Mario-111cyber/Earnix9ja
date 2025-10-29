@@ -32,7 +32,7 @@ const Withdraw = () => {
     "Unity Bank", "Wema Bank", "Zenith Bank", "Moniepoint MFB", "VFD MFB"
   ].sort();
 
-  const MINIMUM_WITHDRAW = 120000;
+  const MINIMUM_WITHDRAW = 50000;
 
   useEffect(() => {
     loadProfile();
@@ -185,8 +185,8 @@ const Withdraw = () => {
             </div>
             <p className="text-sm text-muted-foreground">
               {withdrawalEnabled 
-                ? "ON: Withdraw instantly (₦12,600 activation fee, no referrals needed)" 
-                : "OFF: Withdraw with 5 referrals (₦6,650 fee after 5 withdrawals)"}
+                ? "ON: Withdraw from ₦50,000+ (₦12,600 activation, no referrals needed)" 
+                : "OFF: Withdraw any amount with 5 referrals (₦6,650 fee after 5 withdrawals)"}
             </p>
           </div>
 

@@ -5,6 +5,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 import promo1 from "@/assets/promo-1.png";
 import promo2 from "@/assets/promo-2.png";
 import promo3 from "@/assets/promo-3.png";
@@ -23,6 +24,11 @@ export const PromotionsCarousel = () => {
           align: "start",
           loop: true,
         }}
+        plugins={[
+          Autoplay({
+            delay: 4000,
+          }),
+        ]}
         className="w-full"
       >
         <CarouselContent>
