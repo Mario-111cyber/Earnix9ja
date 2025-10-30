@@ -99,26 +99,46 @@ const Withdraw = () => {
           return;
         }
       } 
-      // TOGGLE OFF: Regular withdrawal (requires 5 referrals, ₦6,650 fee after 5 withdrawals)
+      // TOGGLE OFF: Standard withdrawal (requires 5 referrals, one-time ₦6,660 activation)
       else {
         if (profile.total_referrals < 5) {
           toast.error("You need at least 5 referrals to withdraw");
           return;
         }
 
-        if (profile.withdrawal_count >= 5 && !profile.activation_paid) {
-          toast.info("After 5 withdrawals, activation fee required");
-          navigate("/withdrawal-activation", { state: { withdrawalCount: profile.withdrawal_count } });
+        // Check if standard activation is required (one-time payment)
+        if (!profile.standard_activation_unlocked) {
+          // Create withdrawal record with awaiting_activation_payment status
+          const { data: withdrawal, error: withdrawalError } = await supabase
+            .from("withdrawals")
+            .insert({
+              user_id: session?.user.id,
+              amount,
+              account_name: withdrawData.accountName,
+              account_number: withdrawData.accountNumber,
+              bank_name: withdrawData.bankName,
+              type: "standard",
+              status: "awaiting_activation_payment",
+            })
+            .select()
+            .single();
+
+          if (withdrawalError) throw withdrawalError;
+
+          toast.info("Standard withdrawal requires ₦6,660 activation fee");
+          navigate("/withdrawal-activation", { state: { withdrawalId: withdrawal.id } });
           return;
         }
       }
 
+      const withdrawalType = withdrawalEnabled ? "instant" : "standard";
       const { error } = await supabase.from("withdrawals").insert({
         user_id: session?.user.id,
         amount,
         account_name: withdrawData.accountName,
         account_number: withdrawData.accountNumber,
         bank_name: withdrawData.bankName,
+        type: withdrawalType,
         status: "pending",
       });
 
@@ -186,7 +206,7 @@ const Withdraw = () => {
             <p className="text-sm text-muted-foreground">
               {withdrawalEnabled 
                 ? "ON: Withdraw from ₦50,000+ (₦12,600 activation, no referrals needed)" 
-                : "OFF: Withdraw any amount with 5 referrals (₦6,650 fee after 5 withdrawals)"}
+                : "OFF: Withdraw from ₦50,000+ with 5 referrals (one-time ₦6,660 activation)"}
             </p>
           </div>
 
@@ -199,10 +219,10 @@ const Withdraw = () => {
               </div>
             )}
 
-            {!withdrawalEnabled && profile.withdrawal_count >= 5 && !profile.activation_paid && (
+            {!withdrawalEnabled && !profile.standard_activation_unlocked && (
               <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
                 <p className="text-sm text-blue-600 dark:text-blue-400">
-                  ⚠️ After 5 withdrawals, you need to pay a one-time activation fee of ₦6,650 to continue withdrawing.
+                  ⚡ Standard withdrawal requires a one-time activation fee of ₦6,660 after 5 referrals!
                 </p>
               </div>
             )}

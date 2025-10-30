@@ -13,7 +13,7 @@ import { CopyButton } from "@/components/CopyButton";
 const WithdrawalActivation = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const withdrawalCount = location.state?.withdrawalCount || 0;
+  const withdrawalId = location.state?.withdrawalId;
 
   const [receipt, setReceipt] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -32,6 +32,11 @@ const WithdrawalActivation = () => {
       return;
     }
 
+    if (!withdrawalId) {
+      toast.error("Invalid withdrawal request");
+      return;
+    }
+
     setUploading(true);
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -40,17 +45,32 @@ const WithdrawalActivation = () => {
         return;
       }
 
-      const { error } = await supabase.from("withdrawal_activation_payments").insert({
+      // Upload receipt file to storage (placeholder - storing filename for now)
+      const receiptUrl = receipt.name;
+
+      // Update withdrawal record with activation payment details
+      const { error: updateError } = await supabase
+        .from("withdrawals")
+        .update({
+          status: "activation_payment_submitted",
+          activation_payment_amount: 6660,
+          activation_receipt_url: receiptUrl,
+          activation_submitted_at: new Date().toISOString(),
+        })
+        .eq("id", withdrawalId);
+
+      if (updateError) throw updateError;
+
+      // Also create a record in withdrawal_activation_payments for tracking
+      await supabase.from("withdrawal_activation_payments").insert({
         user_id: session.user.id,
         amount: 6660,
         status: "pending",
-        receipt_url: receipt.name,
+        receipt_url: receiptUrl,
       });
 
-      if (error) throw error;
-
-      toast.success("Activation payment submitted! Awaiting approval.");
-      navigate("/withdrawal-activation-pending");
+      toast.success("Payment submitted! Awaiting confirmation.");
+      navigate("/withdrawal-activation-pending", { state: { withdrawalId } });
     } catch (error: any) {
       toast.error("Failed to submit activation payment");
     } finally {

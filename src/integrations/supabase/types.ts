@@ -126,6 +126,7 @@ export type Database = {
           referral_code: string
           referral_earnings: number | null
           referred_by: string | null
+          standard_activation_unlocked: boolean | null
           total_referrals: number | null
           updated_at: string | null
           withdrawal_count: number | null
@@ -141,6 +142,7 @@ export type Database = {
           referral_code: string
           referral_earnings?: number | null
           referred_by?: string | null
+          standard_activation_unlocked?: boolean | null
           total_referrals?: number | null
           updated_at?: string | null
           withdrawal_count?: number | null
@@ -156,6 +158,7 @@ export type Database = {
           referral_code?: string
           referral_earnings?: number | null
           referred_by?: string | null
+          standard_activation_unlocked?: boolean | null
           total_referrals?: number | null
           updated_at?: string | null
           withdrawal_count?: number | null
@@ -283,31 +286,52 @@ export type Database = {
         Row: {
           account_name: string
           account_number: string
+          activation_payment_amount: number | null
+          activation_receipt_url: string | null
+          activation_reviewed_at: string | null
+          activation_reviewed_by: string | null
+          activation_submitted_at: string | null
           amount: number
           bank_name: string
           created_at: string | null
           id: string
+          rejection_reason: string | null
           status: string | null
+          type: string | null
           user_id: string | null
         }
         Insert: {
           account_name: string
           account_number: string
+          activation_payment_amount?: number | null
+          activation_receipt_url?: string | null
+          activation_reviewed_at?: string | null
+          activation_reviewed_by?: string | null
+          activation_submitted_at?: string | null
           amount: number
           bank_name: string
           created_at?: string | null
           id?: string
+          rejection_reason?: string | null
           status?: string | null
+          type?: string | null
           user_id?: string | null
         }
         Update: {
           account_name?: string
           account_number?: string
+          activation_payment_amount?: number | null
+          activation_receipt_url?: string | null
+          activation_reviewed_at?: string | null
+          activation_reviewed_by?: string | null
+          activation_submitted_at?: string | null
           amount?: number
           bank_name?: string
           created_at?: string | null
           id?: string
+          rejection_reason?: string | null
           status?: string | null
+          type?: string | null
           user_id?: string | null
         }
         Relationships: [
