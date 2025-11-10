@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Eye, EyeOff, Copy, Gift, DollarSign, CheckCircle2, History } from "lucide-react";
+import { Eye, EyeOff, Copy, Gift, DollarSign, CheckCircle2, History, Disc3, Radio } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { FloatingActionButton } from "@/components/FloatingActionButton";
@@ -274,6 +274,24 @@ const Dashboard = () => {
             >
               <History className="w-5 h-5 text-blue-500" />
               <span className="text-xs font-semibold">📊 History</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/spin")}
+              className="h-20 flex flex-col gap-1.5 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
+              <Disc3 className="w-5 h-5 text-accent" />
+              <span className="text-xs font-semibold">🎡 Spin</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/broadcast")}
+              className="h-20 flex flex-col gap-1.5 items-center justify-center rounded-lg border bg-card/80 hover:bg-card border-border/50 transition-all active:scale-95 touch-manipulation cursor-pointer min-h-[44px]"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
+              <Radio className="w-5 h-5 text-primary" />
+              <span className="text-xs font-semibold">📣 Broadcast</span>
             </button>
           </div>
         </div>
