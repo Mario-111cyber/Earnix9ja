@@ -8,49 +8,53 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 220 40% 8%; /* Deeper blue background */
-    --foreground: 210 20% 98%; /* Pale white foreground */
+    /* Converted from #4B0082 to HSL */
+    --background: 274 100% 25%; /* Velvet Indigo background */
+    --foreground: 240 10% 94%; /* Platinum Frost foreground (from #E5E4E2) */
 
-    --card: 220 35% 12%; /* Deep blue card */
-    --card-foreground: 210 20% 98%; /* Pale white text */
+    /* Converted from #4B0082 with variations */
+    --card: 274 100% 20%; /* Darker indigo card */
+    --card-foreground: 240 10% 94%; /* Platinum Frost text */
 
-    --popover: 220 35% 12%; /* Deep blue popover */
-    --popover-foreground: 210 20% 98%; /* Pale white text */
+    --popover: 274 100% 20%; /* Darker indigo popover */
+    --popover-foreground: 240 10% 94%; /* Platinum Frost text */
 
-    --primary: 220 25% 25%; /* Muted deep blue primary */
+    --primary: 274 100% 30%; /* Medium indigo primary */
     --primary-foreground: 45 95% 85%; /* Light gold text */
 
     --secondary: 45 95% 55%; /* Gold secondary */
-    --secondary-foreground: 220 40% 8%; /* Deep blue text */
+    --secondary-foreground: 274 100% 25%; /* Velvet indigo text */
 
-    --muted: 220 30% 18%; /* Deep blue muted */
-    --muted-foreground: 210 20% 70%; /* Pale gray muted text */
+    --muted: 274 100% 18%; /* Dark indigo muted */
+    --muted-foreground: 240 10% 70%; /* Light platinum muted text */
 
     --accent: 45 95% 55%; /* Gold accent */
-    --accent-foreground: 220 40% 8%; /* Deep blue text */
+    --accent-foreground: 274 100% 25%; /* Velvet indigo text */
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%; /* Pale white text */
+    --destructive-foreground: 240 10% 94%; /* Platinum Frost text */
 
-    --border: 220 25% 25%; /* Deep blue border with gold lining feel */
-    --input: 220 25% 20%; /* Deep blue input */
+    --border: 274 100% 30%; /* Indigo border */
+    --input: 274 100% 22%; /* Indigo input */
     --ring: 45 95% 55%; /* Gold ring/focus */
 
     --radius: 1rem;
 
-    --gradient-liquid: linear-gradient(135deg, hsl(220 40% 15% / 0.3), hsl(45 95% 55% / 0.2));
-    --gradient-primary: linear-gradient(135deg, hsl(220 40% 15%), hsl(220 40% 25%));
+    /* Updated gradients with new colors */
+    --gradient-liquid: linear-gradient(135deg, hsl(274 100% 25% / 0.4), hsl(45 95% 55% / 0.2));
+    --gradient-primary: linear-gradient(135deg, hsl(274 100% 25%), hsl(274 100% 35%));
     --gradient-secondary: linear-gradient(135deg, hsl(45 95% 55%), hsl(45 95% 65%));
-    --gradient-mixed: linear-gradient(135deg, hsl(220 40% 20%), hsl(45 95% 55%));
+    --gradient-mixed: linear-gradient(135deg, hsl(274 100% 30%), hsl(45 95% 55%));
     
-    --shadow-glow-primary: 0 0 40px hsl(220 40% 25% / 0.4);
+    /* Updated glow effects */
+    --shadow-glow-primary: 0 0 40px hsl(274 100% 35% / 0.4);
     --shadow-glow-secondary: 0 0 40px hsl(45 95% 55% / 0.3);
   }
 }
 
 @layer utilities {
   .liquid-bg {
-    background: linear-gradient(135deg, hsl(220 40% 8%), hsl(220 35% 12%));
+    background: linear-gradient(135deg, hsl(274 100% 20%), hsl(274 100% 25%));
     position: relative;
     overflow: hidden;
   }
@@ -60,7 +64,7 @@ All colors MUST be HSL.
     position: absolute;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 30% 50%, hsl(220 40% 20% / 0.2) 0%, transparent 50%),
+    background: radial-gradient(circle at 30% 50%, hsl(274 100% 35% / 0.25) 0%, transparent 50%),
                 radial-gradient(circle at 70% 50%, hsl(45 95% 55% / 0.15) 0%, transparent 50%);
     animation: liquid-float 20s ease-in-out infinite;
     pointer-events: none;
@@ -83,7 +87,7 @@ All colors MUST be HSL.
   }
   
   .gradient-text {
-    background: linear-gradient(135deg, hsl(210 20% 98%), hsl(45 95% 65%));
+    background: linear-gradient(135deg, hsl(240 10% 94%), hsl(45 95% 65%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
