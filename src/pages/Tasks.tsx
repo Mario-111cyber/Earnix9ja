@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { FloatingActionButton } from "@/components/FloatingActionButton";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -34,22 +34,40 @@ const Tasks = () => {
 
   const handleClaim = async (task: any) => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
+    if (!user) {
+      toast.error("Please login first");
+      return;
+    }
 
-    let amount = 0;
-    if (task.id === 1 || task.id === 2) amount = 5000;
-    if (task.id === 5) amount = 15000;
+    try {
+      // Simple balance update - no complex verification
+      const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("balance")
+        .eq("id", user.id)
+        .single();
 
-    const { error } = await supabase
-      .from("profiles")
-      .update({ balance: supabase.raw(`balance + ${amount}`) })
-      .eq("id", user.id);
+      if (error) throw error;
 
-    if (error) {
-      toast.error("Failed. Try again.");
-    } else {
-      toast.success(`${task.reward} added instantly!`);
-      if (task.link) window.open(task.link, "_blank");
+      let newBalance = profile.balance;
+      if (task.id === 1 || task.id === 2) newBalance += 5000;
+      if (task.id === 5) newBalance += 15000;
+
+      // Update the balance
+      const { error: updateError } = await supabase
+        .from("profiles")
+        .update({ balance: newBalance })
+        .eq("id", user.id);
+
+      if (updateError) {
+        toast.error("Failed. Try again.");
+      } else {
+        toast.success(`${task.reward} added to your balance!`);
+        if (task.link) window.open(task.link, "_blank");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Something went wrong");
     }
   };
 
