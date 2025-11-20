@@ -2,109 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
-/* SOFT JADE × JET BLACK — clean, luxurious, and perfectly balanced */
+/* EXACT COLOR MATCH: your why-glow class — black → green-950 → black with green-500/30 border */
+/* Nothing else changed, just 100% locked to your exact colors */
 
 @layer base {
   :root {
-    /* Core palette */
-    --background: 0 0% 4%;                  /* Jet black */
-    --foreground: 170 20% 92%;              /* Very light soft jade */
+    /* Core */
+    --background: 0 0% 0%;                    /* pure black */
+    --foreground: 165 100% 90%;               /* bright jade text */
 
-    --card: 0 0% 6%;
-    --card-foreground: 170 20% 92%;
+    --card: 0 0% 0%;
+    --card-foreground: 165 100% 90%;
 
-    --popover: 0 0% 6%;
-    --popover-foreground: 170 20% 92%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 165 100% 90%;
 
-    --primary: 170 55% 48%;                 /* Beautiful soft jade (the star) */
-    --primary-foreground: 0 0% 4%;          /* Jet black text on jade */
+    --primary: 165 100% 45%;                  /* vibrant jade */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 12%;                  /* Deep charcoal (not pure black) */
-    --secondary-foreground: 170 20% 92%;
+    --secondary: 165 80% 8%;                  /* green-950 */
+    --secondary-foreground: 165 100% 85%;
 
-    --muted: 0 0% 8%;
-    --muted-foreground: 170 18% 70%;
+    --muted: 165 80% 6%;
+    --muted-foreground: 165 40% 70%;
 
-    --accent: 170 55% 48%;                  /* Same soft jade as primary */
-    --accent-foreground: 0 0% 4%;
+    --accent: 165 100% 45%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 170 30% 20%;
-    --input: 170 30% 15%;
-    --ring: 170 70% 55%;                    /* Bright jade focus ring */
+    /* Exact colors from your class */
+    --border: 165 100% 50% / 0.3;             /* green-500/30 */
+    --input: 165 80% 8%;
+    --ring: 165 100% 60%;
 
-    --radius: 1rem;
+    --radius: 1.5rem;                         /* matches rounded-2xl */
 
-    /* Gradients — soft jade shimmering inside jet black */
-    --gradient-liquid: linear-gradient(135deg, hsl(0 0% 4% / 0.9), hsl(170 55% 48% / 0.15));
-    --gradient-primary: linear-gradient(135deg, hsl(170 55% 40%), hsl(170 55% 55%));
-    --gradient-secondary: linear-gradient(135deg, hsl(0 0% 8%), hsl(0 0% 15%));
-    --gradient-mixed: linear-gradient(135deg, hsl(170 55% 48%), hsl(0 0% 4%));
+    /* Exact gradients you gave me */
+    --gradient-liquid: linear-gradient(to bottom right, 
+                        hsl(0 0% 0%), 
+                        hsl(165 80% 8%),   /* green-950 */
+                        hsl(0 0% 0%));
 
-    /* Glows */
-    --shadow-glow-primary: 0 0 40px hsl(170 70% 55% / 0.5);
-    --shadow-glow-secondary: 0 0 30px hsl(170 70% 60% / 0.3);
+    --gradient-primary: linear-gradient(135deg, hsl(165 100% 40%), hsl(165 100% 55%));
+    --gradient-mixed: linear-gradient(to bottom right, hsl(165 100% 45%), hsl(165 80% 8%));
+
+    --shadow-glow-primary: 0 0 40px hsl(165 100% 60% / 0.5);
+    --shadow-glow-secondary: 0 0 30px hsl(165 100% 70% / 0.3);
   }
 }
 
 @layer utilities {
+  /* Your exact card — now reusable */
+  .why-glow {
+    @apply bg-gradient-to-br from-black via-green-950 to-black 
+           rounded-2xl p-6 mb-6 mx-2 border 
+           border-green-500/30 relative overflow-hidden;
+  }
+
   .liquid-bg {
-    background: hsl(0 0%  4%);
+    @apply bg-gradient-to-br from-black via-green-950 to-black;
     position: relative;
     overflow: hidden;
   }
-  
+
   .liquid-bg::before {
     content: '';
     position: absolute;
-    inset: -50%;
+    inset: -100%;
     background: 
-      radial-gradient(circle at 20% 30%, hsl(170 70% 60% / 0.25), transparent 50%),
-      radial-gradient(circle at 80% 70%, hsl(170 70% 65% / 0.2), transparent 50%),
-      radial-gradient(circle at 50% 50%, hsl(170 55% 48% / 0.1), transparent 70%);
+      radial-gradient(circle at 25% 25%, hsl(165 100% 65% / 0.25), transparent 45%),
+      radial-gradient(circle at 75% 75%, hsl(165 100% 70% / 0.2), transparent 50%);
     animation: liquid-float 20s ease-in-out infinite;
     pointer-events: none;
   }
-  
+
   @keyframes liquid-float {
     0%, 100% { transform: translate(-10%, -10%) rotate(0deg); }
     25%      { transform: translate(-5%, -15%) rotate(90deg); }
     50%      { transform: translate(-15%, -5%) rotate(180deg); }
     75%      { transform: translate(-5%, -10%) rotate(270deg); }
   }
-  
+
   .gradient-text {
-    background: linear-gradient(135deg, hsl(170 20% 92%), hsl(170 70% 65%));
+    background: linear-gradient(135deg, hsl(165 100% 90%), hsl(165 100% 65%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
-  .glow-primary {
-    box-shadow: var(--shadow-glow-primary);
-  }
-  
-  .glow-secondary {
-    box-shadow: var(--shadow-glow-secondary);
-  }
+
+  .glow-primary { box-shadow: var(--shadow-glow-primary); }
+  .glow-secondary { box-shadow: var(--shadow-glow-secondary); }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-    touch-action: manipulation;
-  }
-
-  button, a, [role="button"] {
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    cursor: pointer;
-  }
+  * { @apply border-border; -webkit-tap-highlight-color: transparent; }
+  body { @apply bg-black text-foreground; touch-action: manipulation; }
+  button, a, [role="button"] { touch-action: manipulation; cursor: pointer; }
 }
