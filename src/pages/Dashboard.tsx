@@ -374,7 +374,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <Link to="/Referral">
+            <Link to="/referrals">
               <Button className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-bold py-3 rounded-full text-lg">
                 Invite & Earn Now
               </Button>
