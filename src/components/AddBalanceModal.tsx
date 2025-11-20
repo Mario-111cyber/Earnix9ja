@@ -132,12 +132,12 @@ export const AddBalanceModal = ({ open, onOpenChange, onSuccess }: AddBalanceMod
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-card border-border max-h-[90vh] overflow-hidden flex flex-col">
-        <DialogHeader>
+      <DialogContent className="bg-card border-border max-h-[90vh] overflow-hidden flex flex-col sm:max-w-md">
+        <DialogHeader className="flex-shrink-0">
           <DialogTitle>Add Balance</DialogTitle>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto space-y-4 pr-2">
+        <div className="flex-1 overflow-y-auto space-y-4 pr-1 custom-scrollbar">
           {/* Bank Details */}
           <div className="bg-muted/50 p-3 rounded-lg space-y-2 text-sm">
             <p className="font-semibold">Bank Details:</p>
@@ -254,7 +254,7 @@ export const AddBalanceModal = ({ open, onOpenChange, onSuccess }: AddBalanceMod
         </div>
 
         {/* Button stays fixed at bottom */}
-        <div className="pt-4 border-t border-border mt-4">
+        <div className="flex-shrink-0 pt-4 border-t border-border mt-4">
           <Button
             onClick={handleSubmit}
             disabled={isSubmitting || amountNum < 1000 || files.length === 0}
@@ -267,6 +267,23 @@ export const AddBalanceModal = ({ open, onOpenChange, onSuccess }: AddBalanceMod
               : "I've Paid & Attached Receipt"}
           </Button>
         </div>
+
+        {/* Custom scrollbar styles */}
+        <style jsx>{`
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+          }
+        `}</style>
       </DialogContent>
     </Dialog>
   );
