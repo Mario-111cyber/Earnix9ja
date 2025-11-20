@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -32,24 +37,26 @@ export const AddBalanceModal = ({ open, onOpenChange, onSuccess }: AddBalanceMod
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
-    const validFiles = selectedFiles.filter(file => {
-      const isValidType = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'].includes(file.type);
+    const validFiles = selectedFiles.filter((file) => {
+      const isValidType = ["image/jpeg", "image/jpg", "image/png", "application/pdf"].includes(file.type);
       const isValidSize = file.size <= 5 * 1024 * 1024; // 5MB
       if (!isValidType) toast.error(`${file.name}: Invalid file type`);
       if (!isValidSize) toast.error(`${file.name}: File too large (max 5MB)`);
       return isValidType && isValidSize;
     });
-    
+
     if (files.length + validFiles.length > 3) {
       toast.error("Maximum 3 files allowed");
       return;
     }
-    
-    setFiles([...files, ...validFiles]);
+
+    setFiles((prev) => [...prev, ...validFiles]);
+    // Reset input so same file can be re-selected if needed
+    e.target.value = "";
   };
 
   const removeFile = (index: number) => {
-    setFiles(files.filter((_, i) => i !== index));
+    setFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async () => {
@@ -57,7 +64,6 @@ export const AddBalanceModal = ({ open, onOpenChange, onSuccess }: AddBalanceMod
       toast.error("Minimum amount is ₦1,000");
       return;
     }
-
     if (files.length === 0) {
       toast.error("Please upload at least one receipt");
       return;
@@ -65,12 +71,11 @@ export const AddBalanceModal = ({ open, onOpenChange, onSuccess }: AddBalanceMod
 
     setIsSubmitting(true);
     setUploading(true);
-    
+
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) throw new Error("Not authenticated");
 
-      // Create top-up record
       const { data: topup, error: topupError } = await supabase
         .from("instant_activation_payments")
         .insert({
@@ -81,24 +86,23 @@ export const AddBalanceModal = ({ open, onOpenChange, onSuccess }: AddBalanceMod
           receipt_count: files.length,
         })
         .select()
-        .maybeSingle();
+        .single();
 
       if (topupError) throw topupError;
+      if (!topup) throw new Error("Failed to create top-up request");
 
-      // Upload files to storage
       const uploadPromises = files.map(async (file, index) => {
-        const fileExt = file.name.split('.').pop();
+        const fileExt = file.name.split(".").pop() || "file";
         const fileName = `${session.user.id}/topup_${topup.id}_${index}.${fileExt}`;
-        
+
         const { error: uploadError } = await supabase.storage
-          .from('receipts')
-          .upload(fileName, file);
+          .from("receipts")
+          .upload(fileName, file, { upsert: false });
 
         if (uploadError) throw uploadError;
 
-        // Store receipt metadata
         const { error: metaError } = await supabase
-          .from('topup_receipts')
+          .from("topup_receipts")
           .insert({
             topup_id: topup.id,
             storage_key: fileName,
@@ -112,15 +116,11 @@ export const AddBalanceModal = ({ open, onOpenChange, onSuccess }: AddBalanceMod
 
       await Promise.all(uploadPromises);
 
-      toast.success("Top-up request submitted! Processing...");
+      toast.success("Top-up request submitted! We'll review it shortly.");
+      onSuccess();
       onOpenChange(false);
       setAmount("");
       setFiles([]);
-      
-      setTimeout(() => {
-        toast.info("Your deposit is being verified. Please wait...");
-      }, 1000);
-      
     } catch (error: any) {
       console.error("Top-up error:", error);
       toast.error(error.message || "Failed to submit top-up request");
@@ -132,67 +132,74 @@ export const AddBalanceModal = ({ open, onOpenChange, onSuccess }: AddBalanceMod
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-card border-border max-h-[85vh] w-[95vw] sm:w-[500px] md:w-[550px] overflow-hidden flex flex-col p-0">
-        <DialogHeader className="px-6 py-4 border-b border-border flex-shrink-0">
-          <DialogTitle className="text-xl">Add Balance</DialogTitle>
+      <DialogContent
+        className="bg-card border-border max-h-[90vh] w-[95vw] max-w-[550px] flex flex-col p-0"
+        // Removed overflow-hidden → this was breaking the scroll!
+      >
+        {/* Header - fixed at top */}
+        <DialogHeader className="px-6 py-5 border-b border-border flex-shrink-0">
+          <DialogTitle className="text-xl font-semibold">Add Balance</DialogTitle>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto px-6 pb-4 space-y-6">
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto px-6 py-5 space-y-6">
           {/* Bank Details */}
           <div className="bg-muted/50 p-4 rounded-lg space-y-3 text-sm border border-border">
-            <p className="font-semibold text-base">Bank Details:</p>
+            <p className="font-semibold text-base">Bank Transfer Details</p>
             <div className="space-y-2">
               <p className="flex justify-between">
                 <span className="text-muted-foreground">Bank:</span>
-                <span className="font-semibold">{BANK_DETAILS.bankName}</span>
+                <span className="font-medium">{BANK_DETAILS.bankName}</span>
               </p>
               <p className="flex justify-between">
                 <span className="text-muted-foreground">Account Name:</span>
-                <span className="font-semibold">{BANK_DETAILS.accountName}</span>
+                <span className="font-medium">{BANK_DETAILS.accountName}</span>
               </p>
               <p className="flex justify-between">
                 <span className="text-muted-foreground">Account Number:</span>
-                <span className="font-semibold text-lg">{BANK_DETAILS.accountNumber}</span>
+                <span className="font-mono text-lg">{BANK_DETAILS.accountNumber}</span>
               </p>
             </div>
           </div>
 
           {/* Amount Input */}
           <div className="space-y-3">
-            <Label htmlFor="amount" className="text-base font-medium">Amount (₦)</Label>
+            <Label htmlFor="amount" className="text-base font-medium">
+              Amount to Add (₦)
+            </Label>
             <Input
               id="amount"
               type="number"
-              placeholder="Enter amount (minimum ₦1,000)"
+              placeholder="Minimum ₦1,000"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               min="1000"
-              className="h-12 text-base"
+              className="h-12 text-lg"
             />
           </div>
 
           {/* Fee Breakdown */}
-          {amountNum > 0 && (
-            <div className="bg-muted/50 p-4 rounded-lg space-y-2 text-sm border border-border">
-              <div className="flex justify-between text-base">
-                <span className="text-muted-foreground">Amount:</span>
-                <span className="font-semibold">₦{amountNum.toLocaleString()}</span>
+          {amountNum >= 1000 && (
+            <div className="bg-muted/50 p-4 rounded-lg space-y-2 border border-border">
+              <div className="flex justify-between">
+                <span>Amount:</span>
+                <span className="font-medium">₦{amountNum.toLocaleString()}</span>
               </div>
-              <div className="flex justify-between text-base">
-                <span className="text-muted-foreground">Fee ({FEE_PERCENT}%):</span>
-                <span className="font-semibold">₦{fee.toLocaleString()}</span>
+              <div className="flex justify-between">
+                <span>Processing Fee ({FEE_PERCENT}%):</span>
+                <span className="font-medium">₦{fee.toLocaleString()}</span>
               </div>
-              <div className="flex justify-between border-t border-border pt-2 mt-2 text-lg">
-                <span className="font-bold">Total to Pay:</span>
-                <span className="font-bold text-primary">₦{totalToPay.toLocaleString()}</span>
+              <div className="flex justify-between pt-3 border-t border-border text-lg font-bold">
+                <span>Total to Transfer:</span>
+                <span className="text-primary">₦{totalToPay.toLocaleString()}</span>
               </div>
             </div>
           )}
 
           {/* Receipt Upload */}
-          <div className="space-y-3">
-            <Label className="text-base font-medium">Upload Receipt (Required)</Label>
-            <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors">
+          <div className="space-y-4">
+            <Label className="text-base font-medium">Upload Payment Receipt</Label>
+            <div className="border-2 border-dashed border-border rounded-xl p-8 text-center hover:border-primary/50 transition-colors">
               <input
                 type="file"
                 id="receipt-upload"
@@ -200,56 +207,56 @@ export const AddBalanceModal = ({ open, onOpenChange, onSuccess }: AddBalanceMod
                 accept=".jpg,.jpeg,.png,.pdf"
                 onChange={handleFileChange}
                 className="hidden"
-                disabled={files.length >= 3}
+                disabled={files.length >= 3 || uploading}
               />
               <label
                 htmlFor="receipt-upload"
-                className={`cursor-pointer flex flex-col items-center gap-3 ${files.length >= 3 ? 'opacity-50' : 'hover:opacity-80'}`}
+                className={`block cursor-pointer ${files.length >= 3 || uploading ? "opacity-50" : ""}`}
               >
-                <Upload className="w-10 h-10 text-muted-foreground" />
-                <p className="text-base text-muted-foreground">
-                  {files.length >= 3 
-                    ? "Maximum 3 files reached" 
-                    : "Click to upload receipt"}
+                <Upload className="w-12 h-12 mx-auto mb-3 text-muted-foreground" />
+                <p className="text-muted-foreground">
+                  {files.length >= 3
+                    ? "Maximum 3 files reached"
+                    : "Click to upload receipt(s)"}
                 </p>
-                <p className="text-sm text-muted-foreground">JPG, PNG, PDF (max 5MB each)</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  JPG, PNG, PDF – max 5MB each
+                </p>
               </label>
             </div>
 
-            {/* File previews */}
+            {/* Uploaded Files Preview */}
             {files.length > 0 && (
-              <div className="space-y-3 mt-4">
-                <p className="text-sm text-muted-foreground">Uploaded files:</p>
+              <div className="space-y-3">
                 {files.map((file, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between bg-muted/50 p-3 rounded-lg border border-border"
+                    className="flex items-center justify-between bg-muted/30 p-3 rounded-lg border"
                   >
                     <div className="flex items-center gap-3">
-                      {file.type === 'application/pdf' ? (
-                        <FileText className="w-8 h-8 text-primary" />
-                      ) : (
+                      {file.type.startsWith("image/") ? (
                         <img
                           src={URL.createObjectURL(file)}
-                          alt="Preview"
-                          className="w-12 h-12 object-cover rounded-lg"
+                          alt="preview"
+                          className="w-12 h-12 object-cover rounded"
                         />
+                      ) : (
+                        <FileText className="w-10 h-10 text-primary" />
                       )}
                       <div>
-                        <p className="text-base font-medium truncate max-w-[220px]">
+                        <p className="text-sm font-medium truncate max-w-[200px]">
                           {file.name}
                         </p>
-                        <p className="text-sm text-muted-foreground">
-                          {(file.size / 1024).toFixed(1)} KB
+                        <p className="text-xs text-muted-foreground">
+                          {((file.size / 1024) / 1024).toFixed(2)} MB
                         </p>
                       </div>
                     </div>
                     <Button
                       variant="ghost"
-                      size="sm"
+                      size="icon"
                       onClick={() => removeFile(index)}
                       disabled={uploading}
-                      className="h-9 w-9 p-0"
                     >
                       <X className="w-5 h-5" />
                     </Button>
@@ -259,24 +266,27 @@ export const AddBalanceModal = ({ open, onOpenChange, onSuccess }: AddBalanceMod
             )}
           </div>
 
-          <div className="bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-lg text-sm text-yellow-500">
-            <p className="font-semibold text-base mb-2">Important Note:</p>
-            <p>A {FEE_PERCENT}% fee is added to all top-ups. Please transfer the exact total amount shown above and upload your payment receipt for verification.</p>
+          {/* Warning */}
+          <div className="bg-amber-500/10 border border-amber-500/30 p-4 rounded-lg text-amber-700 dark:text-amber-400 text-sm">
+            <p className="font-semibold mb-1">Important:</p>
+            <p>
+              Transfer the <strong>exact total amount</strong> shown above and attach your payment receipt.
+            </p>
           </div>
         </div>
 
-        {/* Fixed Button at Bottom */}
-        <div className="flex-shrink-0 px-6 py-4 border-t border-border bg-card/80 backdrop-blur-sm">
+        {/* Fixed Footer Button */}
+        <div className="flex-shrink-0 border-t border-border bg-card px-6 py-4">
           <Button
             onClick={handleSubmit}
             disabled={isSubmitting || amountNum < 1000 || files.length === 0}
-            className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 h-12 text-base font-semibold"
+            className="w-full h-12 text-base font-semibold"
           >
-            {isSubmitting 
-              ? uploading 
-                ? "Uploading Receipts..." 
-                : "Processing Request..." 
-              : "I've Paid & Attached Receipt"}
+            {isSubmitting
+              ? uploading
+                ? "Uploading receipts..."
+                : "Submitting request..."
+              : "I've Made Payment & Attached Receipt"}
           </Button>
         </div>
       </DialogContent>
