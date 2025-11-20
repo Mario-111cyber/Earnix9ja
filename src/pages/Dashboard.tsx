@@ -22,6 +22,7 @@ const Dashboard = () => {
   const [canClaim, setCanClaim] = useState(false);
   const [lastClaimTime, setLastClaimTime] = useState<Date | null>(null);
   const [showTopUp, setShowTopUp] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState("Ready!");
 
   useEffect(() => {
     checkAuth();
@@ -41,11 +42,27 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (lastClaimTime) {
-      const interval = setInterval(() => {
+      const updateCountdown = () => {
         const timeDiff = Date.now() - lastClaimTime.getTime();
         const canClaimNow = timeDiff >= 5 * 60 * 1000; // 5 minutes
-        setCanClaim(canClaimNow);
-      }, 1000);
+        
+        if (canClaimNow) {
+          setTimeRemaining("Ready!");
+          setCanClaim(true);
+        } else {
+          const remainingTime = 5 * 60 * 1000 - timeDiff;
+          const minutes = Math.floor(remainingTime / 60000);
+          const seconds = Math.floor((remainingTime % 60000) / 1000);
+          setTimeRemaining(`${minutes}:${seconds.toString().padStart(2, '0')}`);
+          setCanClaim(false);
+        }
+      };
+
+      // Update immediately
+      updateCountdown();
+
+      // Then set interval for continuous updates
+      const interval = setInterval(updateCountdown, 1000);
 
       return () => clearInterval(interval);
     }
@@ -141,20 +158,6 @@ const Dashboard = () => {
     }
   };
 
-  const getTimeRemaining = () => {
-    if (!lastClaimTime || canClaim) return "Ready!";
-    
-    const now = Date.now();
-    const timeDiff = 5 * 60 * 1000 - (now - lastClaimTime.getTime());
-    
-    if (timeDiff <= 0) return "Ready!";
-    
-    const minutes = Math.floor(timeDiff / 60000);
-    const seconds = Math.floor((timeDiff % 60000) / 1000);
-    
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  };
-
   if (loading || !profile) return null;
 
   return (
@@ -176,7 +179,41 @@ const Dashboard = () => {
       </div>
 
       <div className="space-y-4 py-4" style={{ position: 'relative', zIndex: 2, pointerEvents: 'auto' }}>
-        {/* Balance Card */}
+        {/* Mini Claim Card - SWAPPED POSITION WITH BALANCE */}
+        <div className="px-4">
+          <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20 p-4">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Gift className="w-5 h-5 text-secondary" />
+                  <p className="text-sm font-semibold">Claim Bonus</p>
+                </div>
+                <div className="text-xs px-2 py-1 bg-primary/20 rounded-full">
+                  {canClaim ? "Ready!" : timeRemaining}
+                </div>
+              </div>
+              
+              <div className="text-center">
+                <h2 className="text-3xl md:text-4xl font-bold gradient-text">
+                  ₦15,000
+                </h2>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Every 5 minutes
+                </p>
+              </div>
+
+              <Button
+                onClick={handleClaim}
+                disabled={!canClaim || claiming}
+                className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-sm py-2"
+              >
+                {claiming ? "Claiming..." : canClaim ? "Claim Now" : timeRemaining}
+              </Button>
+            </div>
+          </Card>
+        </div>
+
+        {/* Balance Card - MOVED BELOW CLAIM SECTION */}
         <div className="px-4">
           <Card className="bg-gradient-to-br from-card to-card/80 backdrop-blur-lg border-border/50 p-4 glow-primary animate-fade-in">
             <div className="space-y-3">
@@ -201,28 +238,6 @@ const Dashboard = () => {
                 className="w-full"
               >
                 Top-Up Wallet
-              </Button>
-            </div>
-          </Card>
-        </div>
-
-        {/* Mini Claim Card */}
-        <div className="px-4">
-          <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20 p-3">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-start gap-2 flex-1 min-w-0">
-                <Gift className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
-                <div className="text-xs min-w-0">
-                  <p className="font-semibold text-foreground">Claim ₦15,000 Every 5 Minutes!</p>
-                  <p className="text-muted-foreground truncate">{canClaim ? "Free money waiting!" : `Next claim: ${getTimeRemaining()}`}</p>
-                </div>
-              </div>
-              <Button
-                onClick={handleClaim}
-                disabled={!canClaim || claiming}
-                className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-xs px-3 py-1 h-auto flex-shrink-0"
-              >
-                {claiming ? "Claiming..." : canClaim ? "Claim Now" : getTimeRemaining()}
               </Button>
             </div>
           </Card>
@@ -334,7 +349,7 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        {/* === YOUR NEW "Why Tivexx9ja" SECTION ADDED HERE === */}
+        {/* Why Tivexx9ja Section */}
         <div className="mt-6">
           <div className="why-glow bg-gradient-to-br from-black via-green-950 to-black rounded-2xl p-6 mb-6 mx-2 border border-green-500/30 relative overflow-hidden">
             <div className="text-center mb-4 relative z-10">
@@ -381,9 +396,6 @@ const Dashboard = () => {
             </Link>
           </div>
         </div>
-
-        {/* Bottom Navigation Bar */}
-        
 
         {/* Custom Styles for Glow Effect */}
         <style jsx global>{`
