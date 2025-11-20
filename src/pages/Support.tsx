@@ -8,11 +8,11 @@ const Support = () => {
   const navigate = useNavigate();
 
   const openWhatsApp = () => {
-    window.open("https://wa.me/2349127560865", "_blank", "noopener,noreferrer");
+    window.open("https://t.me/tivexxadmin", "_blank", "noopener,noreferrer");
   };
 
   const openTelegram = () => {
-    window.open("https://t.me/Chixx9ja", "_blank", "noopener,noreferrer");
+    window.open("https://t.me/tivexxadmin", "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -48,7 +48,7 @@ const Support = () => {
               className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-all touch-manipulation min-h-[44px] flex items-center justify-center gap-2"
             >
               <MessageCircle className="w-5 h-5" />
-              WhatsApp Support
+              Telegram Support
             </button>
             <button
               onClick={openTelegram}
@@ -62,8 +62,8 @@ const Support = () => {
 
         <Card className="bg-muted/50 border-border/50 p-4">
           <p className="text-sm text-center text-muted-foreground">
-            📞 <strong>WhatsApp:</strong> +234 705 938 2766<br />
-            📱 <strong>Telegram:</strong> @Chixx9ja
+            📞 {/*<strong>WhatsApp:</strong> +234 705 938 2766<br />*/}
+            📱 <strong>Telegram:</strong> @tivexxadmin
           </p>
         </Card>
       </div>

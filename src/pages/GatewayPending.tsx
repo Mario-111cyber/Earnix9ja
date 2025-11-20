@@ -12,7 +12,7 @@ const GatewayPending = () => {
   };
 
   const openTelegram = () => {
-    window.open("https://t.me/Chixx9ja", "_blank", "noopener,noreferrer");
+    window.open("https://t.me/tivexxadmin", "_blank", "noopener,noreferrer");
   };
 
   return (
