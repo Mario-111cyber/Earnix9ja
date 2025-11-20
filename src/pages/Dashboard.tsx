@@ -374,7 +374,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <Link to="/refer">
+            <Link to="/Referral.tsx">
               <Button className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-bold py-3 rounded-full text-lg">
                 Invite & Earn Now
               </Button>
@@ -383,20 +383,7 @@ const Dashboard = () => {
         </div>
 
         {/* Bottom Navigation Bar */}
-        <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-br from-gray-900 via-green-900 to-black border-t border-green-800/30 shadow-lg flex justify-around items-center h-16 max-w-md mx-auto z-50">
-          <Link to="/dashboard" className="flex flex-col items-center text-green-400">
-            <Home className="h-6 w-6" />
-            <span className="text-xs font-medium">Home</span>
-          </Link>
-          <Link to="/abouttivexx" className="flex flex-col items-center text-gray-400 hover:text-green-400">
-            <Gamepad2 className="h-6 w-6" />
-            <span className="text-xs font-medium">About Tivexx</span>
-          </Link>
-          <Link to="/refer" className="flex flex-col items-center text-gray-400 hover:text-green-400">
-            <User className="h-6 w-6" />
-            <span className="text-xs font-medium">Refer & Earn</span>
-          </Link>
-        </div>
+        
 
         {/* Custom Styles for Glow Effect */}
         <style jsx global>{`
