@@ -113,7 +113,7 @@ const Invest = () => {
                   </div>
                   <div className="bg-muted/50 rounded-lg p-3">
                     <p className="text-xs text-muted-foreground mb-1">Returns</p>
-                    <p className="text-lg font-bold text-secondary">
+                    <p className="text-lg font-bold bg-gradient-to-r from-lime-200 via-lime-300 to-white bg-clip-text text-transparent">
                       ₦{plan.returns.toLocaleString()}
                     </p>
                   </div>
