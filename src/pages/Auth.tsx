@@ -227,6 +227,8 @@ const Auth = () => {
                     placeholder="Enter referral code"
                     value={signupData.referralCode}
                     onChange={(e) => setSignupData({ ...signupData, referralCode: e.target.value })}
+                    disabled={!!refParam}
+                    readOnly={!!refParam}
                   />
                 </div>
                 <Button
