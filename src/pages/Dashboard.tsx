@@ -44,13 +44,13 @@ const Dashboard = () => {
     if (lastClaimTime) {
       const updateCountdown = () => {
         const timeDiff = Date.now() - lastClaimTime.getTime();
-        const canClaimNow = timeDiff >= 5 * 60 * 1000; // 5 minutes
+        const canClaimNow = timeDiff >= 2 * 60 * 1000; // 2 minutes
         
         if (canClaimNow) {
           setTimeRemaining("Ready!");
           setCanClaim(true);
         } else {
-          const remainingTime = 5 * 60 * 1000 - timeDiff;
+          const remainingTime = 2 * 60 * 1000 - timeDiff;
           const minutes = Math.floor(remainingTime / 60000);
           const seconds = Math.floor((remainingTime % 60000) / 1000);
           setTimeRemaining(`${minutes}:${seconds.toString().padStart(2, '0')}`);
@@ -100,7 +100,7 @@ const Dashboard = () => {
         const lastClaim = new Date(claims[0].claimed_at);
         setLastClaimTime(lastClaim);
         const timeDiff = Date.now() - lastClaim.getTime();
-        setCanClaim(timeDiff >= 5 * 60 * 1000);
+        setCanClaim(timeDiff >= 2 * 60 * 1000);
       } else {
         setCanClaim(true);
       }
@@ -125,11 +125,11 @@ const Dashboard = () => {
     try {
       const { error: claimError } = await supabase
         .from("claims")
-        .insert({ user_id: user.id, amount: 15000 });
+        .insert({ user_id: user.id, amount: 1000 });
 
       if (claimError) throw claimError;
 
-      const newBalance = (profile?.balance || 0) + 15000;
+      const newBalance = (profile?.balance || 0) + 1000;
       const { error: updateError } = await supabase
         .from("profiles")
         .update({ balance: newBalance })
@@ -142,12 +142,12 @@ const Dashboard = () => {
         .insert({
           user_id: user.id,
           type: "credit",
-          amount: 15000,
+          amount: 1000,
           description: "Mini claim bonus",
           status: "completed",
         });
 
-      toast.success("₦15,000 claimed successfully!");
+      toast.success("₦1,000 claimed successfully!");
       setLastClaimTime(new Date());
       setCanClaim(false);
       await loadProfile(user.id);
