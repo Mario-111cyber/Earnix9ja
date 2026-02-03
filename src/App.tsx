@@ -23,7 +23,7 @@ import Tasks from "./pages/Tasks";
 import Support from "./pages/Support";
 import Community from "./pages/Community";
 import Spin from "./pages/Spin";
-import Broadcast from "./pages/Broadcast";
+import Invest from "./pages/Broadcast";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -56,7 +56,7 @@ const App = () => (
           <Route path="/support" element={<Support />} />
           <Route path="/community" element={<Community />} />
           <Route path="/spin" element={<Spin />} />
-          <Route path="/broadcast" element={<Broadcast />} />
+          <Route path="/broadcast" element={<Invest />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
