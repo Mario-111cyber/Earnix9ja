@@ -31,7 +31,7 @@ export const WelcomeModal = () => {
             <div>
               <p className="text-sm text-white/90">Step {step} of 2</p>
               <div className="mt-2">
-                <h3 className="text-white text-sm font-semibold">Welcome to {APP_NAME}, Friend!</h3>
+                <h3 className="text-white text-sm font-semibold">.Welcome to {APP_NAME}, Friend!</h3>
               </div>
             </div>
             <button onClick={close} className="text-white/90 hover:opacity-90">
