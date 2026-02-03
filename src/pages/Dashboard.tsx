@@ -203,7 +203,7 @@ const Dashboard = () => {
                 disabled={!canClaim || claiming}
                 className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-sm py-2"
               >
-                {claiming ? "Claiming..." : canClaim ? "Claim ₦15,000" : timeRemaining}
+                {claiming ? "Claiming..." : canClaim ? "Claim ₦1,000" : timeRemaining}
               </Button>
             </div>
           </Card>
