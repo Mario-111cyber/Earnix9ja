@@ -6,7 +6,7 @@ CREATE TABLE public.profiles (
   referral_code TEXT UNIQUE NOT NULL,
   referred_by UUID REFERENCES public.profiles(id),
   balance DECIMAL(12, 2) DEFAULT 50000.00,
-  referral_earnings DECIMAL(12, 2) DEFAULT 15000.00,
+  referral_earnings DECIMAL(12, 2) DEFAULT 12000.00,
   total_referrals INTEGER DEFAULT 0,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -51,7 +51,7 @@ CREATE TABLE public.upgrades (
 CREATE TABLE public.claims (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
-  amount DECIMAL(12, 2) DEFAULT 15000.00,
+  amount DECIMAL(12, 2) DEFAULT 12000.00,
   claimed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
