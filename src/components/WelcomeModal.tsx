@@ -8,6 +8,7 @@ const APP_NAME = "Earnix9ja";
 export const WelcomeModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(1);
+  const [telegramJoined, setTelegramJoined] = useState(false);
 
   useEffect(() => {
     const seen = localStorage.getItem("chixx9ja_welcome_seen");
@@ -20,10 +21,24 @@ export const WelcomeModal = () => {
     setStep(1);
   };
 
-  const joinTelegram = () => window.open("https://t.me/tivexxglobal", "_blank", "noopener,noreferrer");
+  const joinTelegram = () => {
+    setTelegramJoined(true);
+    window.open("https://t.me/tivexxglobal", "_blank", "noopener,noreferrer");
+  };
+
+  const handleOpenChange = (open: boolean) => {
+    // Prevent closing the modal while on step 1 unless Telegram join action occurred
+    if (!open && step === 1 && !telegramJoined) return;
+    if (!open) {
+      // When allowed to close, mark as seen
+      localStorage.setItem("chixx9ja_welcome_seen", "true");
+      setStep(1);
+    }
+    setIsOpen(open);
+  };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-md">
         {/* Gradient header similar to PayGo */}
         <div className="relative rounded-t-lg overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 p-4">
@@ -34,9 +49,7 @@ export const WelcomeModal = () => {
                 <h3 className="text-white text-lg font-bold">Welcome to {APP_NAME}, Friend!</h3>
               </div>
             </div>
-            <button onClick={close} className="text-white/90 hover:opacity-90">
-              <X className="w-5 h-5" />
-            </button>
+            {/* X button removed to prevent skipping the onboarding step */}
           </div>
 
           {/* pill progress */}
@@ -63,8 +76,9 @@ export const WelcomeModal = () => {
 
               <div className="space-y-2">
                 <button onClick={joinTelegram} className="w-full bg-gradient-to-r from-purple-500 to-pink-400 text-white font-semibold py-3 rounded-lg">Join Telegram Channel</button>
-                <button onClick={() => setStep(2)} className="w-full bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold py-3 rounded-lg">Amazing! Continue →</button>
-                <button onClick={close} className="w-full bg-muted hover:bg-muted/80 text-foreground font-medium py-2 rounded-lg">Maybe Later</button>
+                {telegramJoined && (
+                  <button onClick={() => setStep(2)} className="w-full bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold py-3 rounded-lg">Amazing! Continue →</button>
+                )}
               </div>
             </div>
           ) : (
