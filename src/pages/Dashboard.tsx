@@ -316,8 +316,8 @@ const Dashboard = () => {
                   <p className="text-xl font-bold text-primary">{profile.total_referrals || 0}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">Total Earned</p>
-                  <p className="text-xl font-bold text-secondary">₦{Number(profile.total_referral_earnings || 0).toLocaleString()}</p>
+                  <p className="text-xs text-muted-foreground">Earnings/Referral</p>
+                  <p className="text-xl font-bold text-secondary">₦{Number(profile.referral_earnings || 15000).toLocaleString()}</p>
                 </div>
               </div>
               <div className="bg-muted/50 p-3 rounded-lg">

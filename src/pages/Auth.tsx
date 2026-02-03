@@ -94,7 +94,7 @@ const Auth = () => {
         
         const { data: referrer, error: referrerError } = await supabase
           .from("profiles")
-          .select("id, balance, total_referrals, referral_code, total_referral_earnings")
+          .select("id, balance, total_referrals, referral_code")
           .ilike("referral_code", finalRefCode.trim())
           .maybeSingle();
 
@@ -105,21 +105,18 @@ const Auth = () => {
           console.log("🔍 DEBUG: Updating referrer:", referrer.id);
           const currentBalance = Number(referrer.balance) || 0;
           const currentReferrals = Number(referrer.total_referrals) || 0;
-          const currentTotalReferralEarnings = Number(referrer.total_referral_earnings) || 0;
           
           const newBalance = currentBalance + 12000;
           const newReferrals = currentReferrals + 1;
-          const newTotalReferralEarnings = currentTotalReferralEarnings + 12000;
 
           console.log("🔍 DEBUG: Current balance:", currentBalance, "referrals:", currentReferrals);
-          console.log("🔍 DEBUG: New balance:", newBalance, "referrals:", newReferrals, "total earnings:", newTotalReferralEarnings);
+          console.log("🔍 DEBUG: New balance:", newBalance, "referrals:", newReferrals);
 
           const { error: updateError } = await supabase
             .from("profiles")
             .update({
               balance: newBalance,
               total_referrals: newReferrals,
-              total_referral_earnings: newTotalReferralEarnings,
             })
             .eq("id", referrer.id);
 
