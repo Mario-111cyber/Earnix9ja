@@ -96,8 +96,8 @@ const Referrals = () => {
             </div>
             <div className="text-center">
               <TrendingUp className="w-8 h-8 mx-auto mb-2 text-secondary" />
-              <p className="text-sm text-muted-foreground">Earnings Per Referral</p>
-              <p className="text-3xl font-bold text-secondary">₦{Number(profile.referral_earnings).toLocaleString()}</p>
+              <p className="text-sm text-muted-foreground">Total Referral Earnings</p>
+              <p className="text-3xl font-bold text-secondary">₦{Number((profile.total_referrals || 0) * (profile.referral_earnings || 12000)).toLocaleString()}</p>
             </div>
           </div>
         </Card>
