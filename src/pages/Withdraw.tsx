@@ -4,19 +4,19 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, DollarSign } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { ArrowLeft, DollarSign, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { FloatingActionButton } from "@/components/FloatingActionButton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 
 const Withdraw = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [withdrawalEnabled, setWithdrawalEnabled] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [withdrawData, setWithdrawData] = useState({
     amount: "",
     accountName: "",
@@ -32,7 +32,7 @@ const Withdraw = () => {
     "Unity Bank", "Wema Bank", "Zenith Bank", "Moniepoint MFB", "VFD MFB"
   ].sort();
 
-  const MINIMUM_WITHDRAW = 50000;
+  const MINIMUM_WITHDRAW = 200000;
 
   useEffect(() => {
     loadProfile();
@@ -61,6 +61,15 @@ const Withdraw = () => {
     }
   };
 
+  const handleWithdrawWithoutReferral = () => {
+    setShowUpgradeModal(true);
+  };
+
+  const handleUpgradeConfirm = () => {
+    setShowUpgradeModal(false);
+    navigate("/upgrade");
+  };
+
   const handleWithdraw = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -87,76 +96,35 @@ const Withdraw = () => {
       return;
     }
 
+    // Check referral requirement
+    if (profile.total_referrals < 5) {
+      toast.error("You need at least 5 active referrals to withdraw");
+      return;
+    }
+
     setSubmitting(true);
     try {
       const { data: { session } } = await supabase.auth.getSession();
 
-      // TOGGLE ON: Instant withdrawal (requires ₦12,600 activation, no referrals needed)
-      if (withdrawalEnabled) {
-        if (!profile.instant_activation_paid) {
-          toast.info("Instant withdrawal requires ₦12,600 activation fee");
-          navigate("/instant-withdrawal-activation");
-          return;
-        }
-      } 
-      // TOGGLE OFF: Standard withdrawal (requires 5 referrals, one-time ₦6,660 activation)
-      else {
-        if (profile.total_referrals < 5) {
-          toast.error("You need at least 5 referrals to withdraw");
-          return;
-        }
+      // Create withdrawal record with awaiting_activation_payment status
+      const { data: withdrawal, error: withdrawalError } = await supabase
+        .from("withdrawals")
+        .insert({
+          user_id: session?.user.id,
+          amount,
+          account_name: withdrawData.accountName,
+          account_number: withdrawData.accountNumber,
+          bank_name: withdrawData.bankName,
+          type: "standard",
+          status: "awaiting_activation_payment",
+        })
+        .select()
+        .maybeSingle();
 
-        // Check if standard activation is required (one-time payment)
-        if (!profile.standard_activation_unlocked) {
-          // Create withdrawal record with awaiting_activation_payment status
-          const { data: withdrawal, error: withdrawalError } = await supabase
-            .from("withdrawals")
-            .insert({
-              user_id: session?.user.id,
-              amount,
-              account_name: withdrawData.accountName,
-              account_number: withdrawData.accountNumber,
-              bank_name: withdrawData.bankName,
-              type: "standard",
-              status: "awaiting_activation_payment",
-            })
-            .select()
-            .maybeSingle();
+      if (withdrawalError) throw withdrawalError;
 
-          if (withdrawalError) throw withdrawalError;
-
-          toast.info("Standard withdrawal requires ₦6,660 activation fee");
-          navigate("/withdrawal-activation", { state: { withdrawalId: withdrawal.id } });
-          return;
-        }
-      }
-
-      const withdrawalType = withdrawalEnabled ? "instant" : "standard";
-      const { error } = await supabase.from("withdrawals").insert({
-        user_id: session?.user.id,
-        amount,
-        account_name: withdrawData.accountName,
-        account_number: withdrawData.accountNumber,
-        bank_name: withdrawData.bankName,
-        type: withdrawalType,
-        status: "pending",
-      });
-
-      if (error) throw error;
-
-      // Create transaction as PENDING (no balance deduction yet)
-      await supabase.from("transactions").insert({
-        user_id: session?.user.id,
-        type: "debit",
-        amount,
-        description: `Withdrawal request to ${withdrawData.bankName}`,
-        status: "pending",
-      });
-
-      // DO NOT update balance - wait for admin approval
-
-      toast.success("Withdrawal request submitted! Awaiting approval.");
-      navigate("/history");
+      // Redirect to payment activation page
+      navigate("/withdrawal-activation", { state: { withdrawalId: withdrawal.id } });
     } catch (error: any) {
       toast.error("Failed to submit withdrawal");
     } finally {
@@ -192,45 +160,39 @@ const Withdraw = () => {
             <DollarSign className="w-8 h-8 text-secondary" />
           </div>
 
-          <div className="mb-6 p-4 bg-muted/50 rounded-lg">
-            <div className="flex items-center justify-between mb-2">
-              <Label htmlFor="withdrawal-toggle" className="text-base font-semibold">
-                {withdrawalEnabled ? "⚡ Instant Withdrawal" : "💯 Standard Withdrawal"}
-              </Label>
-              <Switch
-                id="withdrawal-toggle"
-                checked={withdrawalEnabled}
-                onCheckedChange={setWithdrawalEnabled}
-              />
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {withdrawalEnabled 
-                ? "ON: Withdraw from ₦50,000+ (₦12,600 activation, no referrals needed)" 
-                : "OFF: Withdraw from ₦50,000+ with 5 referrals (one-time ₦6,660 activation)"}
-            </p>
+          <div className="mb-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+            <p className="text-sm font-semibold text-blue-600 dark:text-blue-400 mb-3">Withdrawal Requirements</p>
+            <ul className="space-y-2">
+              <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                <CheckCircle2 className="w-4 h-4 text-blue-500" />
+                Minimum withdrawal balance: ₦200,000
+              </li>
+              <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                <CheckCircle2 className="w-4 h-4 text-blue-500" />
+                5 active referrals
+              </li>
+              <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                <CheckCircle2 className="w-4 h-4 text-blue-500" />
+                All invited users must complete full sign-up
+              </li>
+            </ul>
+          </div>
+
+          {/* Withdraw Without Referral Button */}
+          <div className="mb-6">
+            <Button
+              onClick={handleWithdrawWithoutReferral}
+              className="w-full bg-gradient-to-r from-secondary to-primary hover:opacity-90"
+            >
+              Withdraw Without Referral
+            </Button>
           </div>
 
           <form onSubmit={handleWithdraw} className="space-y-4">
-            {!withdrawalEnabled && profile.total_referrals < 5 && (
+            {profile.total_referrals < 5 && (
               <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
                 <p className="text-sm text-yellow-600 dark:text-yellow-400">
                   You have {profile.total_referrals} referrals. You need {5 - profile.total_referrals} more to withdraw.
-                </p>
-              </div>
-            )}
-
-            {!withdrawalEnabled && !profile.standard_activation_unlocked && (
-              <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                <p className="text-sm text-blue-600 dark:text-blue-400">
-                  ⚡ Standard withdrawal requires a one-time activation fee of ₦6,660 after 5 referrals!
-                </p>
-              </div>
-            )}
-
-            {withdrawalEnabled && !profile.instant_activation_paid && (
-              <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                <p className="text-sm text-blue-600 dark:text-blue-400">
-                  ⚡ Instant withdrawal requires a one-time activation fee of ₦12,600. No referrals needed!
                 </p>
               </div>
             )}
@@ -308,6 +270,32 @@ const Withdraw = () => {
           </form>
         </Card>
       </div>
+
+      {/* Upgrade Modal */}
+      <Dialog open={showUpgradeModal} onOpenChange={setShowUpgradeModal}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Upgrade Your Account</DialogTitle>
+            <DialogDescription>
+              You need to upgrade your account before withdrawing without referrals.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowUpgradeModal(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleUpgradeConfirm}
+              className="bg-gradient-to-r from-primary to-secondary"
+            >
+              Go to Upgrade
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <FloatingActionButton />
     </div>
