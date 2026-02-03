@@ -28,7 +28,7 @@ export const WelcomeModal = () => {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center">
-            Welcome to Tivexx_Global! 🎉
+            Welcome to Earnix9ja! 🎉
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
