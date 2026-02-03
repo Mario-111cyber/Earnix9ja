@@ -37,9 +37,28 @@ export const WelcomeModal = () => {
     setIsOpen(open);
   };
 
+  const handleEscapeKeyDown = (e: KeyboardEvent) => {
+    // Prevent escape key on step 1 unless telegram joined
+    if (step === 1 && !telegramJoined) {
+      e.preventDefault();
+    }
+  };
+
+  const handleInteractOutside = (e: Event) => {
+    // Prevent clicking outside the dialog on step 1 unless telegram joined
+    if (step === 1 && !telegramJoined) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent hideClose className="sm:max-w-md">
+      <DialogContent 
+        hideClose 
+        className="sm:max-w-md"
+        onEscapeKeyDown={handleEscapeKeyDown}
+        onInteractOutside={handleInteractOutside}
+      >
         {/* Gradient header similar to PayGo */}
         <div className="relative rounded-t-lg overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 p-4">
           <div className="flex items-start justify-between">
