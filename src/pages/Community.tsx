@@ -8,11 +8,11 @@ const Community = () => {
   const navigate = useNavigate();
 
   const openTelegramChannel = () => {
-    window.open("https://t.me/tivexxglobal", "_blank", "noopener,noreferrer");
+    window.location.href = "https://t.me/tivexxglobal";
   };
 
   const openTelegramGroup = () => {
-    window.open("https://whatsapp.com/channel/0029VbBnF1q9MF8rtAHEih2p", "_blank", "noopener,noreferrer");
+    window.location.href = "https://whatsapp.com/channel/0029VbBnF1q9MF8rtAHEih2p";
   };
 
   return (

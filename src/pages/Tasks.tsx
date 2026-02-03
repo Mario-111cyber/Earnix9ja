@@ -94,7 +94,7 @@ const Tasks = () => {
         
         // Open link for Telegram/WhatsApp tasks (even if balance update worked)
         if (task.link) {
-          window.open(task.link, "_blank");
+          window.location.href = task.link;
         }
       }
     } catch (error) {

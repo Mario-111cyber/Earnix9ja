@@ -39,7 +39,7 @@ const UpgradePending = () => {
             <p className="text-sm font-semibold text-muted-foreground mb-2">Need Help?</p>
             
             <Button
-              onClick={() => window.open(WHATSAPP_SUPPORT, "_blank")}
+              onClick={() => (window.location.href = WHATSAPP_SUPPORT)}
               className="w-full bg-green-500 hover:bg-green-600 text-white"
             >
               <MessageCircle className="w-4 h-4 mr-2" />
@@ -47,7 +47,7 @@ const UpgradePending = () => {
             </Button>
 
             <Button
-              onClick={() => window.open(TELEGRAM_SUPPORT, "_blank")}
+              onClick={() => (window.location.href = TELEGRAM_SUPPORT)}
               className="w-full bg-blue-500 hover:bg-blue-600 text-white"
             >
               <Send className="w-4 h-4 mr-2" />

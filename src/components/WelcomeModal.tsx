@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { X, Gift, Bolt, Users } from "lucide-react";
+import { Gift, Bolt, Users } from "lucide-react";
 
 const APP_NAME = "Earnix9ja";
 
@@ -23,7 +23,7 @@ export const WelcomeModal = () => {
 
   const joinTelegram = () => {
     setTelegramJoined(true);
-    window.open("https://t.me/tivexxglobal", "_blank", "noopener,noreferrer");
+    window.location.href = "https://t.me/tivexxglobal";
   };
 
   const handleOpenChange = (open: boolean) => {

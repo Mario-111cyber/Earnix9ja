@@ -8,11 +8,11 @@ const InstantWithdrawalPending = () => {
   const navigate = useNavigate();
 
   const openWhatsApp = () => {
-    window.open("https://whatsapp.com/channel/0029VbBnF1q9MF8rtAHEih2p", "_blank");
+    window.location.href = "https://whatsapp.com/channel/0029VbBnF1q9MF8rtAHEih2p";
   };
 
   const openTelegram = () => {
-    window.open("https://t.me/tivexxadmin", "_blank");
+    window.location.href = "https://t.me/tivexxadmin";
   };
 
   return (

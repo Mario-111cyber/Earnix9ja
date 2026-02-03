@@ -8,11 +8,11 @@ const WithdrawalActivationPending = () => {
   const navigate = useNavigate();
 
   const openWhatsApp = () => {
-    window.open("https://t.me/tivexxadmin", "_blank");
+    window.location.href = "https://t.me/tivexxadmin";
   };
 
   const openTelegram = () => {
-    window.open("https://t.me/tivexxadmin", "_blank");
+    window.location.href = "https://t.me/tivexxadmin";
   };
 
   return (
