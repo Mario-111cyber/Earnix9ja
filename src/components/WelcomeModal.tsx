@@ -24,9 +24,9 @@ export const WelcomeModal = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[65vh] overflow-auto">
         {/* Gradient header similar to PayGo */}
-        <div className="relative rounded-t-lg overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 p-4">
+        <div className="relative rounded-t-lg overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 p-3">
           <div className="flex items-start justify-between">
             <div>
               <p className="text-sm text-white/90">Step {step} of 2</p>
@@ -46,41 +46,41 @@ export const WelcomeModal = () => {
           </div>
         </div>
 
-        {/* Body (keeps same visual size/spacing) */}
-        <div className="p-6 -mt-2 space-y-5 bg-card/80 rounded-b-lg">
+        {/* Body (reduced height) */}
+        <div className="p-4 -mt-1 space-y-3 bg-card/80 rounded-b-lg">
           {step === 1 ? (
             <div className="text-center space-y-4">
-              <div className="mx-auto w-20 h-20 rounded-full bg-white/10 flex items-center justify-center">
-                <Gift className="w-8 h-8 text-purple-400" />
+              <div className="mx-auto w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
+                <Gift className="w-6 h-6 text-purple-400" />
               </div>
 
-              <h4 className="text-xl font-semibold">Welcome to {APP_NAME}!</h4>
+              <h4 className="text-lg font-semibold">Welcome to {APP_NAME}!</h4>
 
-              <p className="text-sm text-muted-foreground mx-3">
+              <p className="text-sm text-muted-foreground mx-2">
                 As a new user you'll receive a welcome bonus of <span className="font-bold">₦50,000</span>.
                 This bonus is credited after you complete the required steps (joining our Telegram is one of them).
               </p>
 
-              <div className="space-y-2">
-                <button onClick={joinTelegram} className="w-full bg-gradient-to-r from-purple-500 to-pink-400 text-white font-semibold py-3 rounded-lg">Join Telegram Channel</button>
-                <button onClick={() => setStep(2)} className="w-full bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold py-3 rounded-lg">Amazing! Continue →</button>
-                <button onClick={close} className="w-full bg-muted hover:bg-muted/80 text-foreground font-medium py-2 rounded-lg">Maybe Later</button>
+              <div className="space-y-1">
+                <button onClick={joinTelegram} className="w-full bg-gradient-to-r from-purple-500 to-pink-400 text-white font-semibold py-2 rounded-lg">Join Telegram Channel</button>
+                <button onClick={() => setStep(2)} className="w-full bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold py-2 rounded-lg">Amazing! Continue →</button>
+                <button onClick={close} className="w-full bg-muted hover:bg-muted/80 text-foreground font-medium py-1.5 rounded-lg">Maybe Later</button>
               </div>
             </div>
           ) : (
             <div className="text-center space-y-4">
-              <div className="mx-auto w-20 h-20 rounded-full bg-white/10 flex items-center justify-center">
-                <Bolt className="w-8 h-8 text-yellow-400" />
+              <div className="mx-auto w-16 h-16 rounded-full bg-white/10 flex items-center justify-center">
+                <Bolt className="w-6 h-6 text-yellow-400" />
               </div>
 
-              <h4 className="text-xl font-semibold">Start Earning More!</h4>
+              <h4 className="text-lg font-semibold">Start Earning More!</h4>
 
-              <p className="text-sm text-muted-foreground mx-3">
+              <p className="text-sm text-muted-foreground mx-2">
                 Earn by referrals, daily tasks, special promotions and by claiming earnings every few minutes.
               </p>
 
               <div className="space-y-2 text-left">
-                <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+                <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-lg">
                   <Users className="w-5 h-5 text-primary" />
                   <div>
                     <p className="font-semibold">Referrals</p>
@@ -88,14 +88,14 @@ export const WelcomeModal = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+                <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-lg">
                   <div className="ml-0">
                     <p className="font-semibold">Daily Tasks</p>
                     <p className="text-xs text-muted-foreground">Complete tasks to earn instant rewards</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
+                <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-lg">
                   <div className="ml-0">
                     <p className="font-semibold">Special Promotions</p>
                     <p className="text-xs text-muted-foreground">Participate in limited-time offers</p>
@@ -104,8 +104,8 @@ export const WelcomeModal = () => {
               </div>
 
               <div className="space-y-2">
-                <button onClick={close} className="w-full bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold py-3 rounded-lg">Let's Get Started →</button>
-                <button onClick={() => setStep(1)} className="w-full bg-muted hover:bg-muted/80 text-foreground font-medium py-2 rounded-lg">← Back</button>
+                <button onClick={close} className="w-full bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold py-2 rounded-lg">Let's Get Started →</button>
+                <button onClick={() => setStep(1)} className="w-full bg-muted hover:bg-muted/80 text-foreground font-medium py-1.5 rounded-lg">← Back</button>
               </div>
             </div>
           )}
