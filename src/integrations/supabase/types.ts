@@ -134,6 +134,7 @@ export type Database = {
           referred_by: string | null
           standard_activation_unlocked: boolean | null
           total_referrals: number | null
+          total_referral_earnings: number | null
           updated_at: string | null
           withdrawal_count: number | null
         }
@@ -150,12 +151,13 @@ export type Database = {
           referred_by?: string | null
           standard_activation_unlocked?: boolean | null
           total_referrals?: number | null
+          total_referral_earnings?: number | null
           updated_at?: string | null
           withdrawal_count?: number | null
         }
         Update: {
           activation_paid?: boolean | null
-          balance?: number | null
+          balance?: boolean | null
           created_at?: string | null
           email?: string
           full_name?: string
@@ -166,6 +168,7 @@ export type Database = {
           referred_by?: string | null
           standard_activation_unlocked?: boolean | null
           total_referrals?: number | null
+          total_referral_earnings?: number | null
           updated_at?: string | null
           withdrawal_count?: number | null
         }

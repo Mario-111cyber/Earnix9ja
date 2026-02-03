@@ -94,7 +94,7 @@ const Auth = () => {
         
         const { data: referrer, error: referrerError } = await supabase
           .from("profiles")
-          .select("id, balance, total_referrals, referral_code")
+          .select("id, balance, total_referrals, referral_code, total_referral_earnings")
           .ilike("referral_code", finalRefCode.trim())
           .maybeSingle();
 
