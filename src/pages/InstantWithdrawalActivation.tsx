@@ -114,6 +114,13 @@ const InstantWithdrawalActivation = () => {
                   <CopyButton text="MONIEPOINT" />
                 </div>
               </div>
+              <div className="flex justify-between items-center p-3 bg-background/50 rounded">
+                <span className="text-sm text-muted-foreground">Verification ID</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold font-mono">10077A</span>
+                  <CopyButton text="10077A" />
+                </div>
+              </div>
             </div>
           </div>
 

@@ -117,6 +117,13 @@ const UpgradePayment = () => {
                 <p>Bank: MONIEOOINT</p>
               </div>
             </div>
+            <div className="bg-muted/50 p-3 rounded-lg flex items-center justify-between">
+              <p className="text-sm text-muted-foreground">Verification ID</p>
+              <div className="flex items-center gap-2">
+                <span className="font-mono font-bold">10077A</span>
+                <CopyButton text="10077A" />
+              </div>
+            </div>
             <p className="flex gap-2">
               <span className="font-bold">2.</span>
               <span>Upload your payment receipt below</span>
