@@ -39,7 +39,7 @@ export const WelcomeModal = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent hideClose className="sm:max-w-md">
         {/* Gradient header similar to PayGo */}
         <div className="relative rounded-t-lg overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 p-4">
           <div className="flex items-start justify-between">
