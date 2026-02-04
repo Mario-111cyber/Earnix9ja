@@ -151,7 +151,7 @@ const Invest = () => {
             💡 Tip: Choose a plan that matches your investment capacity
           </p>
           <p className="text-xs text-muted-foreground">
-            All returns are guaranteed within 24 hours
+            All returns are guaranteed within 24 hours.
           </p>
         </Card>
       </div>
