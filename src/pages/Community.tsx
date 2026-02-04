@@ -12,7 +12,7 @@ const Community = () => {
   };
 
   const openTelegramGroup = () => {
-    window.location.href = "https://whatsapp.com/channel/0029VbBnF1q9MF8rtAHEih2p";
+    window.location.href = "https://whatsapp.com/channel/0029VbCUz1HF6smt6EnLWw0F";
   };
 
   return (
