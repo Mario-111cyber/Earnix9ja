@@ -113,7 +113,7 @@ const WithdrawalActivation = () => {
           <div className="space-y-4">
             <div className="bg-muted/50 p-4 rounded-lg">
               <p className="text-sm text-muted-foreground mb-1">Amount</p>
-              <p className="text-2xl font-bold">₦6,660</p>
+              <p className="text-2xl font-bold">₦5,100</p>
             </div>
 
             <div className="bg-muted/50 p-4 rounded-lg">

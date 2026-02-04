@@ -32,7 +32,7 @@ const WithdrawalActivationPending = () => {
           <h2 className="text-2xl font-bold mb-4">Payment Under Review</h2>
           
           <p className="text-muted-foreground mb-6">
-            Your standard withdrawal activation payment of ₦6,660 has been received and is currently being reviewed. 
+            Your standard withdrawal activation payment of ₦5,100 has been received and is currently being reviewed. 
             This process may take up to 24 hours.
           </p>
 

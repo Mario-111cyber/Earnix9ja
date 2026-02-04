@@ -15,7 +15,7 @@ const Tasks = () => {
       title: "Join Telegram Channel",
       description: "Join our official Telegram channel for updates",
       reward: "₦5,000",
-      link: "https://t.me/earnix9jachannel",
+      link: "https://t.me/earnixupdate",
     },
     {
       id: 2,
