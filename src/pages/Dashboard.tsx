@@ -338,30 +338,30 @@ const Dashboard = () => {
 
         {/* Why Tivexx9ja Section */}
         <div className="mt-6">
-          <div className="why-glow bg-gradient-to-br from-black via-green-950 to-black rounded-2xl p-6 mb-6 mx-2 border border-green-500/30 relative overflow-hidden">
+          <div className="why-glow bg-gradient-to-br from-black via-amber-950 to-black rounded-2xl p-6 mb-6 mx-2 border border-yellow-600/40 relative overflow-hidden">
             <div className="text-center mb-4 relative z-10">
               <h2 className="text-2xl font-bold text-white mb-2">Why Earnix9ja⁉️</h2>
-              <div className="w-16 h-1 bg-gradient-to-r from-green-500 to-yellow-400 mx-auto mb-4"></div>
+              <div className="w-16 h-1 bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-600 mx-auto mb-4 shadow-lg shadow-yellow-500/50"></div>
             </div>
 
             <div className="space-y-3 mb-6 relative z-10">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 bg-gradient-to-br from-yellow-500 to-yellow-700 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-yellow-500/40">
                   <Shield className="w-5 h-5 text-white" />
                 </div>
                 <div>
                   <h3 className="text-white font-semibold mb-1">100% Secure</h3>
-                  <p className="text-green-200 text-sm">Bank-level encryption protects your transactions and personal data</p>
+                  <p className="text-yellow-100 text-sm">Bank-level encryption protects your transactions and personal data</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-yellow-500/40">
                   <TrendingUp className="w-5 h-5 text-black" />
                 </div>
                 <div>
                   <h3 className="text-white font-semibold mb-1">Lightning Fast</h3>
-                  <p className="text-green-200 text-sm">Instant withdrawals and seamless transactions in seconds</p>
+                  <p className="text-yellow-100 text-sm">Instant withdrawals and seamless transactions in seconds</p>
                 </div>
               </div>
 
