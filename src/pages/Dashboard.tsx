@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Eye, EyeOff, Copy, Gift, DollarSign, CheckCircle2, History, Disc3, Radio, Shield, TrendingUp, Users, Home, Gamepad2, User } from "lucide-react";
+import { Eye, EyeOff, Copy, Gift, DollarSign, CheckCircle2, History, Disc3, Radio, Shield, TrendingUp, Users, Home, Gamepad2, User, Send } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { FloatingActionButton } from "@/components/FloatingActionButton";
@@ -209,23 +209,22 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        {/* Mini Claim Card - NOW WITH TOP UP BUTTON INSTEAD OF CLAIM */}
+        {/* Join Telegram Channel Card */}
         <div className="px-4">
           <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20 p-3">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-start gap-2 flex-1 min-w-0">
-                <DollarSign className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
+                <Send className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
                 <div className="text-xs min-w-0">
-                  <p className="font-semibold text-foreground">Top Up Your Wallet</p>
-                  <p className="text-muted-foreground truncate">Add funds to your account</p>
+                  <p className="font-semibold text-foreground">Join Our Community</p>
+                  <p className="text-muted-foreground truncate">Get updates on Telegram</p>
                 </div>
               </div>
-              {/* TOP UP BUTTON REPLACES CLAIM BUTTON */}
               <Button
-                onClick={() => setShowTopUp(true)}
+                onClick={() => window.open('https://t.me/earnix9jachannel', '_blank')}
                 className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-xs px-3 py-1 h-auto flex-shrink-0"
               >
-                Top Up
+                Join
               </Button>
             </div>
           </Card>
