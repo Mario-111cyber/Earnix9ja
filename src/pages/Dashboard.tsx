@@ -221,7 +221,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <Button
-                onClick={() => window.open('https://t.me/earnix9jachannel', '_blank')}
+                onClick={() => window.open('https://t.me/earnix9jachannel')}
                 className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-xs px-3 py-1 h-auto flex-shrink-0"
               >
                 Join
