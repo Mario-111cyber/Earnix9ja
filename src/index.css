@@ -17,20 +17,20 @@
     --popover: 0 0% 5%;                       /* Deep black popover */
     --popover-foreground: 0 0% 94%;           /* Light text */
 
-    /* Primary Color: Main Gold Accent (#D4AF37 / #C9A96E) */
-    --primary: 43 77% 66%;                    /* Gold #D4AF37 */
+    /* Primary Color: Bright Shiny Yellow-Gold (Yellow-500 #EAB308) */
+    --primary: 47.9 97% 52%;                  /* Yellow-500 #EAB308 */
     --primary-foreground: 0 0% 8%;            /* Dark text on gold */
 
-    /* Secondary Color: Softer Gold */
-    --secondary: 43 83% 70%;                  /* Lighter gold #E8C670 */
+    /* Secondary Color: Brighter Yellow-Gold (Yellow-400 #FBBF24) */
+    --secondary: 45.4 97% 70%;                /* Yellow-400 #FBBF24 */
     --secondary-foreground: 0 0% 8%;          /* Dark text */
 
     /* Muted Colors for subtle elements */
     --muted: 0 0% 30%;                        /* Charcoal gray */
     --muted-foreground: 0 0% 75%;             /* Light gray text */
 
-    /* Accent Color: Warm Gold for CTAs */
-    --accent: 38 72% 62%;                     /* Warm gold #C9A96E */
+    /* Accent Color: Dark Yellow-Gold (Yellow-600 #CA8A04) */
+    --accent: 42.3 96% 44%;                   /* Yellow-600 #CA8A04 */
     --accent-foreground: 0 0% 98%;            /* White text on accent */
 
     /* Destructive (for warnings/errors - muted red) */
@@ -38,38 +38,38 @@
     --destructive-foreground: 0 0% 98%;       /* White text */
 
     /* Border & Ring Colors */
-    --border: 43 60% 40% / 0.2;               /* Very subtle gold border */
+    --border: 47.9 97% 44% / 0.3;             /* Bright yellow border */
     --input: 0 0% 12%;                        /* Dark input background */
-    --ring: 43 77% 66%;                       /* Gold focus ring */
+    --ring: 47.9 97% 52%;                     /* Yellow focus ring */
     --radius: 0.875rem;                       /* Refined border radius */
 
-    /* Gold Color Stops */
-    --gold-main: #D4AF37;                     /* Classic luxurious gold */
-    --gold-secondary: #C9A96E;                /* Brushed/matte gold */
-    --gold-light: #E8C670;                    /* Softer gold for hover */
-    --gold-lighter: #F5D5A3;                  /* Very soft gold */
-    --gold-warm: #B89778;                     /* Warm undertone gold */
+    /* Yellow-Gold Color Stops - Matching Why Earnix9ja Card */
+    --gold-main: #EAB308;                     /* Yellow-500 - Primary bright gold */
+    --gold-secondary: #CA8A04;                /* Yellow-600 - Darker gold */
+    --gold-light: #FBBF24;                    /* Yellow-400 - Lighter shiny gold */
+    --gold-lighter: #FCDCB8;                  /* Yellow-200 - Very soft gold */
+    --gold-warm: #A16207;                     /* Yellow-700 - Warm undertone */
 
-    /* Gradients - Subtle luxury feel */
-    --gradient-gold-button: linear-gradient(135deg, #D4AF37, #C9A96E);
-    --gradient-gold-hover: linear-gradient(135deg, #E8C670, #D4AF37);
+    /* Gradients - Bright shiny yellow feel */
+    --gradient-gold-button: linear-gradient(135deg, #FBBF24, #EAB308);
+    --gradient-gold-hover: linear-gradient(135deg, #FCD34D, #FBBF24);
     --gradient-dark-subtle: linear-gradient(135deg, #0a0a0a, #111111);
     
-    /* Shadows - Sophisticated depth */
-    --shadow-gold-glow: 0 0 20px rgba(212, 175, 55, 0.15);
-    --shadow-gold-hover: 0 0 30px rgba(212, 175, 55, 0.25);
+    /* Shadows - Shiny yellow glow */
+    --shadow-gold-glow: 0 0 20px rgba(250, 191, 36, 0.3);
+    --shadow-gold-hover: 0 0 30px rgba(250, 191, 36, 0.5);
     --shadow-elegant: 0 4px 12px rgba(0, 0, 0, 0.4);
     --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.3);
 
     /* Sidebar Colors */
     --sidebar-background: 0 0% 4%;
     --sidebar-foreground: 0 0% 93%;
-    --sidebar-primary: 43 77% 66%;
+    --sidebar-primary: 47.9 97% 52%;
     --sidebar-primary-foreground: 0 0% 8%;
-    --sidebar-accent: 38 72% 62%;
+    --sidebar-accent: 42.3 96% 44%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 43 60% 40% / 0.15;
-    --sidebar-ring: 43 77% 66%;
+    --sidebar-border: 47.9 97% 44% / 0.2;
+    --sidebar-ring: 47.9 97% 52%;
   }
 
   /* Smooth transitions for luxury feel */
@@ -125,7 +125,7 @@
   .gold-btn:focus,
   .primary-btn:focus {
     outline: none;
-    box-shadow: var(--shadow-gold-hover), 0 0 0 3px rgba(212, 175, 55, 0.2);
+    box-shadow: var(--shadow-gold-hover), 0 0 0 3px rgba(250, 191, 36, 0.3);
   }
 
   /* ===== SECONDARY BUTTONS (Subtle Gold) ===== */
