@@ -25,6 +25,18 @@ const Tasks = () => {
       link: "https://whatsapp.com/channel/0029VbCUz1HF6smt6EnLWw0F",
     },
     {
+      id: 3,
+      title: "Join TikTok Community",
+      description: "Join our TikTok community for exclusive content!",
+      reward: "₦5,000",
+    },
+        {
+      id: 4,
+      title: "Daily Check-in",
+      description: "Come back every day and claim your reward!",
+      reward: "₦15,000",
+    },
+        {
       id: 5,
       title: "Daily Check-in",
       description: "Come back every day and claim your reward!",
