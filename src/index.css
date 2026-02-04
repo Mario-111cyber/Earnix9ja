@@ -2,127 +2,454 @@
 @tailwind components;
 @tailwind utilities;
 
-/* EXACTUAL COLOR MATCH: black → deep yellow/amber-950 */
+/* Luxury Dark Gold Theme - Deep Black with Elegant Metallic Gold Accents */
 @layer base {
   :root {
-    --background: 0 0% 0%;
-    --foreground: 165 100% 90%;
+    /* Primary Colors: Deep True Black Background */
+    --background: 0 0% 4%;                    /* Deep black (#0a0a0a) */
+    --foreground: 0 0% 95%;                   /* Near white text */
 
-    --card: 0 0% 0%;
-    --card-foreground: 165 100% 90%;
+    /* Card Styling */
+    --card: 0 0% 6%;                          /* Dark charcoal cards */
+    --card-foreground: 0 0% 93%;              /* Light text on cards */
 
-    --popover: 0 0% 0%;
-    --popover-foreground: 165 100% 90%;
+    /* Popover Styling */
+    --popover: 0 0% 5%;                       /* Deep black popover */
+    --popover-foreground: 0 0% 94%;           /* Light text */
 
-    --primary: 165 100% 45%;                  /* vibrant jade buttons */
-    --primary-foreground: 0 0% 100%;
+    /* Primary Color: Main Gold Accent (#D4AF37 / #C9A96E) */
+    --primary: 43 77% 66%;                    /* Gold #D4AF37 */
+    --primary-foreground: 0 0% 8%;            /* Dark text on gold */
 
-    --secondary: 165 80% 8%;
-    --secondary-foreground: 165 100% 85%;
+    /* Secondary Color: Softer Gold */
+    --secondary: 43 83% 70%;                  /* Lighter gold #E8C670 */
+    --secondary-foreground: 0 0% 8%;          /* Dark text */
 
-    --muted: 165 80% 6%;
-    --muted-foreground: 165 40% 70%;
+    /* Muted Colors for subtle elements */
+    --muted: 0 0% 30%;                        /* Charcoal gray */
+    --muted-foreground: 0 0% 75%;             /* Light gray text */
 
-    --accent: 165 100% 45%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent Color: Warm Gold for CTAs */
+    --accent: 38 72% 62%;                     /* Warm gold #C9A96E */
+    --accent-foreground: 0 0% 98%;            /* White text on accent */
 
-    /* BRIGHT ASH / LIGHT JADE FOR IMPORTANT BUTTONS & BOXES */
-    --bright: 165 90% 68%;
-    --bright-foreground: 0 0% 4%;
-    --bright-border: 165 100% 60% / 0.4;
+    /* Destructive (for warnings/errors - muted red) */
+    --destructive: 0 50% 50%;                 /* Muted red */
+    --destructive-foreground: 0 0% 98%;       /* White text */
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    /* Border & Ring Colors */
+    --border: 43 60% 40% / 0.2;               /* Very subtle gold border */
+    --input: 0 0% 12%;                        /* Dark input background */
+    --ring: 43 77% 66%;                       /* Gold focus ring */
+    --radius: 0.875rem;                       /* Refined border radius */
 
-    --border: 165 100% 50% / 0.3;
-    --input: 165 80% 8%;
-    --ring: 165 100% 60%;
-    --radius: 1.5rem;
+    /* Gold Color Stops */
+    --gold-main: #D4AF37;                     /* Classic luxurious gold */
+    --gold-secondary: #C9A96E;                /* Brushed/matte gold */
+    --gold-light: #E8C670;                    /* Softer gold for hover */
+    --gold-lighter: #F5D5A3;                  /* Very soft gold */
+    --gold-warm: #B89778;                     /* Warm undertone gold */
 
-    --gradient-liquid: linear-gradient(to bottom right, hsl(0 0% 0%), hsl(165 80% 8%), hsl(0 0% 0%));
-    --gradient-primary: linear-gradient(135deg, hsl(165 100% 40%), hsl(165 100% 55%));
-    --gradient-mixed: linear-gradient(to bottom right, hsl(165 100% 45%), hsl(165 80% 8%));
+    /* Gradients - Subtle luxury feel */
+    --gradient-gold-button: linear-gradient(135deg, #D4AF37, #C9A96E);
+    --gradient-gold-hover: linear-gradient(135deg, #E8C670, #D4AF37);
+    --gradient-dark-subtle: linear-gradient(135deg, #0a0a0a, #111111);
+    
+    /* Shadows - Sophisticated depth */
+    --shadow-gold-glow: 0 0 20px rgba(212, 175, 55, 0.15);
+    --shadow-gold-hover: 0 0 30px rgba(212, 175, 55, 0.25);
+    --shadow-elegant: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.3);
 
-    --shadow-glow-primary: 0 0 40px hsl(165 100% 60% / 0.5);
-    --shadow-glow-secondary: 0 0 30px hsl(165 100% 70% / 0.3);
+    /* Sidebar Colors */
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 0 0% 93%;
+    --sidebar-primary: 43 77% 66%;
+    --sidebar-primary-foreground: 0 0% 8%;
+    --sidebar-accent: 38 72% 62%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 43 60% 40% / 0.15;
+    --sidebar-ring: 43 77% 66%;
+  }
+
+  /* Smooth transitions for luxury feel */
+  * {
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
   }
 }
 
 @layer utilities {
-  /* Your original cards – black → amber-950 / yellow-950 */
-  .why-glow {
-    @apply bg-gradient-to-br from-amber-950 via-yellow-950 to-amber-950 rounded-2xl p-6 mb-6 mx-2 border border-green-500/30 relative overflow-hidden;
+  /* ====== LUXURY DARK GOLD THEME UTILITIES ====== */
+
+  /* ===== BACKGROUND & BASE ELEMENTS ===== */
+  body, html, #root {
+    @apply bg-black text-foreground;
+    background-color: #0a0a0a;
   }
 
-  .liquid-bg {
-    @apply bg-gradient-to-br from-amber-950 via-yellow-950 to-amber-950;
-    position: relative;
-    overflow: hidden;
+  /* Deep black background with subtle texture */
+  .luxury-bg {
+    @apply bg-black;
+    background-color: #0a0a0a;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.02) 0%, transparent 50%);
   }
 
-  .liquid-bg::before {
-    content: '';
-    position: absolute;
-    inset: inset-100%;
-    background: 
-      radial-gradient(circle at 25% 25%, hsl(165 100% 65% / 0.25), transparent 45%),
-      radial-gradient(circle at 75% 75%, hsl(165 100% 70% / 0.2), transparent 50%);
-    animation: liquid-float 20s ease-in-out infinite;
-    pointer-events: none;
+  /* ===== GOLD BUTTONS & CTAs (Main Primary Action) ===== */
+  .luxury-btn-gold,
+  .gold-btn,
+  .primary-btn {
+    @apply px-6 py-3 font-semibold rounded-lg transition-all duration-300;
+    background: linear-gradient(135deg, #D4AF37, #C9A96E);
+    color: #0a0a0a;
+    border: 1px solid #E8C670;
+    box-shadow: var(--shadow-elegant);
   }
 
-  @keyframes liquid-float {
-    0%, 100% { transform: translate(-10%, -10%) rotate(0deg); }
-    25%      { transform: translate(-5%, -15%) rotate(90deg); }
-    50%      { transform: translate(-15%, -5%) rotate(180deg); }
-    75%      { transform: translate(-5%, -10%) rotate(270deg); }
+  .luxury-btn-gold:hover,
+  .gold-btn:hover,
+  .primary-btn:hover {
+    background: linear-gradient(135deg, #E8C670, #D4AF37);
+    box-shadow: var(--shadow-gold-hover);
+    transform: translateY(-2px);
   }
 
-  .gradient-text {
-    background: linear-gradient(135deg, hsl(165 100% 90%), hsl(165 100% 65%));
+  .luxury-btn-gold:active,
+  .gold-btn:active,
+  .primary-btn:active {
+    transform: translateY(0);
+  }
+
+  .luxury-btn-gold:focus,
+  .gold-btn:focus,
+  .primary-btn:focus {
+    outline: none;
+    box-shadow: var(--shadow-gold-hover), 0 0 0 3px rgba(212, 175, 55, 0.2);
+  }
+
+  /* ===== SECONDARY BUTTONS (Subtle Gold) ===== */
+  .luxury-btn-outline,
+  .outline-btn {
+    @apply px-6 py-3 font-semibold rounded-lg transition-all duration-300;
+    background: transparent;
+    color: #D4AF37;
+    border: 1.5px solid #D4AF37;
+  }
+
+  .luxury-btn-outline:hover,
+  .outline-btn:hover {
+    background: rgba(212, 175, 55, 0.1);
+    color: #E8C670;
+    border-color: #E8C670;
+    box-shadow: var(--shadow-gold-glow);
+  }
+
+  /* ===== CARD STYLING WITH GOLD ACCENTS ===== */
+  .luxury-card,
+  .gold-card {
+    @apply bg-neutral-900 rounded-lg p-6 transition-all duration-300;
+    background-color: #111111;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .luxury-card:hover,
+  .gold-card:hover {
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: var(--shadow-elegant), var(--shadow-gold-glow);
+  }
+
+  /* Premium card with gold edge */
+  .luxury-card-premium {
+    @apply bg-neutral-950 rounded-lg p-6;
+    background: linear-gradient(135deg, #111111, #0a0a0a);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.1), var(--shadow-elegant);
+  }
+
+  /* ===== TEXT & TYPOGRAPHY ===== */
+  .gold-text {
+    color: #D4AF37;
+  }
+
+  .gold-text-light {
+    color: #E8C670;
+  }
+
+  .gold-text-warm {
+    color: #C9A96E;
+  }
+
+  /* Elegant gradient text */
+  .luxury-gradient-text {
+    background: linear-gradient(135deg, #D4AF37, #E8C670);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .glow-primary { box-shadow: var(--shadow-glow-primary); }
-  .glow-secondary { box-shadow: var(--shadow-glow-secondary); }
+  /* ===== BORDERS & DIVIDERS ===== */
+  .gold-border {
+    border-color: rgba(212, 175, 55, 0.3);
+  }
 
-  /* BRIGHT ASH/LIGHT JADE BUTTONS & BOXES – unchanged */
+  .gold-border-subtle {
+    border-color: rgba(212, 175, 55, 0.1);
+  }
+
+  .gold-divider {
+    @apply border-b border-b-2;
+    border-color: rgba(212, 175, 55, 0.15);
+  }
+
+  .gold-divider-accent {
+    @apply border-b border-b-2;
+    border-image: linear-gradient(90deg, transparent, #D4AF37, transparent) 1;
+  }
+
+  /* ===== LINKS & INTERACTIVE ELEMENTS ===== */
+  a, .link {
+    @apply text-gold-500 transition-colors duration-300;
+    color: #D4AF37;
+    position: relative;
+  }
+
+  a:hover, .link:hover {
+    color: #E8C670;
+  }
+
+  /* Elegant underline effect on links */
+  a.luxury-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #D4AF37;
+    transition: width 0.3s ease;
+  }
+
+  a.luxury-link:hover::after {
+    width: 100%;
+  }
+
+  /* ===== INPUT FIELDS & FORMS ===== */
+  input, textarea, select {
+    @apply bg-neutral-950 border border-gold-border-subtle rounded-lg px-4 py-2;
+    background-color: #0f0f0f;
+    color: #e5e5e5;
+    border-color: rgba(212, 175, 55, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #D4AF37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    background-color: #1a1a1a;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: rgba(212, 175, 55, 0.5);
+  }
+
+  /* ===== BADGES & TAGS ===== */
+  .luxury-badge,
+  .gold-badge {
+    @apply inline-block px-3 py-1 rounded-full text-sm font-medium;
+    background-color: rgba(212, 175, 55, 0.15);
+    color: #D4AF37;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+  }
+
+  .luxury-badge-solid {
+    @apply inline-block px-3 py-1 rounded-full text-sm font-medium;
+    background: linear-gradient(135deg, #D4AF37, #C9A96E);
+    color: #0a0a0a;
+    border: 1px solid #E8C670;
+  }
+
+  /* ===== PROGRESS BARS ===== */
+  .luxury-progress {
+    @apply w-full h-2 bg-neutral-800 rounded-full overflow-hidden;
+    background-color: #1a1a1a;
+  }
+
+  .luxury-progress::after {
+    content: '';
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #C9A96E, #D4AF37, #E8C670);
+    border-radius: 9999px;
+    box-shadow: var(--shadow-gold-glow);
+  }
+
+  /* ===== GLASS-MORPHISM ELEMENTS ===== */
+  .luxury-glass {
+    @apply rounded-lg backdrop-blur-md;
+    background: rgba(10, 10, 10, 0.4);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .luxury-glass:hover {
+    background: rgba(10, 10, 10, 0.5);
+    border-color: rgba(212, 175, 55, 0.2);
+  }
+
+  /* ===== GLOWING EFFECTS ===== */
+  .gold-glow {
+    box-shadow: var(--shadow-gold-glow);
+  }
+
+  .gold-glow-strong {
+    box-shadow: var(--shadow-gold-hover);
+  }
+
+  .gold-text-glow {
+    color: #D4AF37;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+  }
+
+  /* ===== LUXURY ANIMATIONS ===== */
+  @keyframes gold-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+    }
+  }
+
+  @keyframes gold-shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .animate-gold-pulse {
+    animation: gold-pulse 2s infinite;
+  }
+
+  .animate-gold-shimmer {
+    background-size: 1000px 100%;
+    animation: gold-shimmer 3s linear infinite;
+  }
+
+  /* ===== SECTION BACKGROUNDS ===== */
+  .luxury-section {
+    @apply py-12 px-6;
+    background: linear-gradient(180deg, #0a0a0a, #111111);
+  }
+
+  .luxury-section-accent {
+    @apply py-12 px-6;
+    background: #0f0f0f;
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  }
+
+  /* ===== TABLES & DATA DISPLAY ===== */
+  .luxury-table {
+    @apply w-full border-collapse;
+  }
+
+  .luxury-table th {
+    @apply px-4 py-3 text-left font-semibold border-b-2;
+    color: #D4AF37;
+    border-color: rgba(212, 175, 55, 0.3);
+    background-color: rgba(212, 175, 55, 0.05);
+  }
+
+  .luxury-table td {
+    @apply px-4 py-3 border-b;
+    border-color: rgba(212, 175, 55, 0.1);
+  }
+
+  .luxury-table tr:hover {
+    background-color: rgba(212, 175, 55, 0.03);
+  }
+
+  /* ===== MODAL & OVERLAY ===== */
+  .luxury-modal {
+    @apply fixed inset-0 flex items-center justify-center;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+  }
+
+  .luxury-modal-content {
+    @apply bg-neutral-900 rounded-lg p-8 max-w-md w-full mx-4;
+    background-color: #111111;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  }
+
+  /* ===== UTILITY CLASSES FOR QUICK APPLICATION ===== */
+  .dark-luxury {
+    @apply bg-black text-foreground;
+  }
+
+  .luxury-shadow {
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .luxury-transition {
+    @apply transition-all duration-300 ease;
+  }
+
+  /* Removes old theme utilities - override with luxury versions */
   .bright-btn,
   button[class*="withdraw"],
   button[class*="history"],
   button[class*="spin"],
   button[class*="deposit"],
-  button[class*="balance"],
-  .withdraw-btn,
-  .history-btn,
-  .spin-btn,
-  .deposit-btn,
-  .balance-btn,
-  [data-action="withdraw"],
-  [data-action="history"],
-  [data-action="spin"] {
-    @apply bg-[hsl(var(--bright))] text-[hsl(var(--bright-foreground))]
-           border border-[hsl(var(--bright-border))] rounded-2xl
-           font-semibold shadow-xl shadow-green-500/30
-           hover:shadow-2xl hover:shadow-green-500/50 hover:scale-105
-           transition-all duration-300;
+  button[class*="balance"] {
+    @apply luxury-btn-gold;
   }
-
-  /* All your previous utilities (unchanged) */
-  .animate-slide-in-right { animation: slideInRight 0.5s ease-out forwards; }
-  .animate-slide-in-left  { animation: slideInLeft  0.5s ease-out forwards; }
-  @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-  @keyframes slideInLeft  { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
   input, textarea, select,
   [type="text"], [type="email"], [type="password"],
   [type="number"], [type="tel"], [type="url"], [type="search"] {
-    @apply bg-amber-950/50 border border-green-500/30 rounded-xl text-foreground placeholder-muted-foreground transition-all duration-200;
+    @apply bg-neutral-950 border border-gold-border-subtle rounded-lg text-foreground transition-all duration-300;
+    background-color: #0f0f0f;
   }
+}
 
-  input:focus, textarea:focus, select:focus,
+/* ===== ANIMATIONS ===== */
+@keyframes slideInRight { 
+  from { 
+    transform: translateX(100%); 
+    opacity: 0; 
+  } 
+  to { 
+    transform: translateX(0); 
+    opacity: 1; 
+  } 
+}
+
+@keyframes slideInLeft  { 
+  from { 
+    transform: translateX(-100%); 
+    opacity: 0; 
+  } 
+  to { 
+    transform: translateX(0); 
+    opacity: 1; 
+  } 
+}
+
+.animate-slide-in-right { 
+  animation: slideInRight 0.5s ease-out forwards; 
+}
+
+.animate-slide-in-left  { 
+  animation: slideInLeft 0.5s ease-out forwards; 
+}  input:focus, textarea:focus, select:focus,
   [type="text"]:focus, [type="email"]:focus, [type="password"]:focus,
   [type="number"]:focus, [type="tel"]:focus, [type="url"]:focus, [type="search"]:focus {
     @apply border-green-500/80 ring-4 ring-green-500/30 shadow-lg shadow-green-500/20;

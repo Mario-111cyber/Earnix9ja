@@ -57,6 +57,30 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Luxury Gold Theme Colors
+        gold: {
+          50: "#FEF9EF",
+          100: "#FEF1D6",
+          200: "#FDE5B0",
+          300: "#F5D5A3",
+          400: "#E8C670",
+          500: "#D4AF37",
+          600: "#C9A96E",
+          700: "#A8934E",
+          800: "#8B7A3A",
+          900: "#6B5D2B",
+          950: "#544A1F",
+        },
+        "luxury-black": {
+          DEFAULT: "#0a0a0a",
+          900: "#000000",
+          800: "#111111",
+          700: "#1a1a1a",
+        },
+        "luxury-dark": {
+          DEFAULT: "#0f0f0f",
+          950: "#050505",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
