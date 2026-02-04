@@ -385,7 +385,7 @@ const Dashboard = () => {
         </div>
 
         {/* Custom Styles for Glow Effect */}
-        <style jsx global>{`
+        <style>{`
           @keyframes bounce-slow {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-6px); }

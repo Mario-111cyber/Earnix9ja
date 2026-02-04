@@ -237,11 +237,13 @@
 
   /* ===== INPUT FIELDS & FORMS ===== */
   input, textarea, select {
-    @apply bg-neutral-950 border border-gold-border-subtle rounded-lg px-4 py-2;
     background-color: #0f0f0f;
     color: #e5e5e5;
     border-color: rgba(212, 175, 55, 0.15);
     transition: all 0.3s ease;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
   }
 
   input:focus, textarea:focus, select:focus {
@@ -415,8 +417,12 @@
   input, textarea, select,
   [type="text"], [type="email"], [type="password"],
   [type="number"], [type="tel"], [type="url"], [type="search"] {
-    @apply bg-neutral-950 border border-gold-border-subtle rounded-lg text-foreground transition-all duration-300;
     background-color: #0f0f0f;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 0.5rem;
+    color: #e5e5e5;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
   }
 }
 
@@ -449,33 +455,4 @@
 
 .animate-slide-in-left  { 
   animation: slideInLeft 0.5s ease-out forwards; 
-}  input:focus, textarea:focus, select:focus,
-  [type="text"]:focus, [type="email"]:focus, [type="password"]:focus,
-  [type="number"]:focus, [type="tel"]:focus, [type="url"]:focus, [type="search"]:focus {
-    @apply border-green-500/80 ring-4 ring-green-500/30 shadow-lg shadow-green-500/20;
-  }
-
-  .rounded-md { @apply !rounded-xl; }
-  * { outline: none !important; }
-
-  .fixed > div, [role="dialog"], .modal, .popup, .dialog,
-  [data-radix-dialog-content], [data-radix-popover-content] {
-    @apply rounded-2xl overflow-hidden border border-green-500/30 bg-gradient-to-br from-amber-950 via-yellow-950 to-amber-950 shadow-2xl;
-  }
-
-  .fixed button, [role="dialog"] button, .modal button,
-  .popup button, .dialog button { @apply rounded-full transition-all duration-200; }
-
-  .bg-dark-jade       { background-color: hsl(165 80% 8%); }
-  .bg-dark-jade-light { background-color: hsl(165 80% 14%); }
-  .bg-dark-jade-light:hover { background-color: hsl(165 100% 45%); }
-
-  .no-scrollbar::-webkit-scrollbar { display: none; }
-  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-}
-
-@layer base {
-  * { @apply border-border; -webkit-tap-highlight-color: transparent; }
-  body { @apply bg-amber-950 text-foreground; touch-action: manipulation; }
-  button, a, [role="button"] { touch-action: manipulation; cursor: pointer; }
 }
