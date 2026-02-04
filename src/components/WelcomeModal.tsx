@@ -23,7 +23,7 @@ export const WelcomeModal = () => {
 
   const joinTelegram = () => {
     setTelegramJoined(true);
-    window.location.href = "https://t.me/tivexxglobal";
+    window.location.href = "https://t.me/earnix9jachannel";
   };
 
   const handleOpenChange = (open: boolean) => {
