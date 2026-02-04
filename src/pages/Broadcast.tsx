@@ -52,8 +52,8 @@ const Invest = () => {
   ];
 
   const handleInvestNow = (plan: InvestmentPlan) => {
-    toast.info(`Investing ₦${plan.investment.toLocaleString()} in ${plan.name}...`);
-    // TODO: Implement investment logic here
+    // Navigate to payment page with the exact amount for the chosen plan
+    navigate("/invest-payment", { state: plan });
   };
 
   return (

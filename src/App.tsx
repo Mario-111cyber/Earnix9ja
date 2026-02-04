@@ -12,6 +12,7 @@ import Profile from "./pages/Profile";
 import Withdraw from "./pages/Withdraw";
 import Upgrade from "./pages/Upgrade";
 import UpgradePayment from "./pages/UpgradePayment";
+import InvestPayment from "./pages/InvestPayment";
 import UpgradePending from "./pages/UpgradePending";
 import GatewayActivation from "./pages/GatewayActivation";
 import GatewayPending from "./pages/GatewayPending";
@@ -45,6 +46,7 @@ const App = () => (
           <Route path="/withdraw" element={<Withdraw />} />
           <Route path="/upgrade" element={<Upgrade />} />
           <Route path="/upgrade-payment" element={<UpgradePayment />} />
+          <Route path="/invest-payment" element={<InvestPayment />} />
           <Route path="/upgrade-pending" element={<UpgradePending />} />
           <Route path="/gateway-activation" element={<GatewayActivation />} />
           <Route path="/gateway-pending" element={<GatewayPending />} />
