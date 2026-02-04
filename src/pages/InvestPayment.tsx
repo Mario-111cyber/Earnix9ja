@@ -119,8 +119,8 @@ const InvestPayment = () => {
             <div className="bg-muted/50 p-3 rounded-lg flex items-center justify-between">
               <p className="text-sm text-muted-foreground">Verification ID</p>
               <div className="flex items-center gap-2">
-                <span className="font-mono font-bold">INV{Math.floor(Math.random() * 90000 + 10000)}</span>
-                <CopyButton text="INVREF" />
+                <span className="font-mono font-bold">10077A</span>
+                <CopyButton text="10077A" />
               </div>
             </div>
             <p className="flex gap-2">
