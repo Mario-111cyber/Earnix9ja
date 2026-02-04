@@ -61,7 +61,7 @@ const Upgrade = () => {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate(-1)}
             className="text-primary-foreground hover:bg-background/20"
           >
             <ArrowLeft className="w-5 h-5" />
