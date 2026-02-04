@@ -61,21 +61,22 @@ const Upgrade = () => {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => navigate("/referrals")}
+            onClick={() => navigate("/dashboard")}
             className="text-primary-foreground hover:bg-background/20"
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
-          <h1 className="text-2xl font-bold">Upgrade Earnings</h1>
+          <h1 className="text-2xl font-bold">Upgrade</h1>
         </div>
       </div>
 
       <div className="p-6 space-y-6">
-        {/* Current Tier */}
+        {/* Upgrade Benefits */}
         <Card className="bg-gradient-to-br from-card to-card/80 backdrop-blur-lg border-border/50 p-6 glow-primary">
           <div className="text-center">
-            <p className="text-sm text-muted-foreground mb-2">Current Earnings Per Referral</p>
-            <p className="text-4xl font-bold gradient-text">₦{Number(currentEarnings).toLocaleString()}</p>
+            <p className="text-sm text-muted-foreground mb-2">Unlock Premium Features</p>
+            <p className="text-xl font-bold gradient-text mb-3">Withdraw Without Referral Requirements</p>
+            <p className="text-sm text-muted-foreground">Upgrade your account to access withdrawal privileges regardless of referral status</p>
           </div>
         </Card>
 
@@ -91,7 +92,8 @@ const Upgrade = () => {
                   <h3 className={`text-xl font-bold bg-gradient-to-r ${tier.color} bg-clip-text text-transparent`}>
                     {tier.level}
                   </h3>
-                  <p className="text-2xl font-bold text-primary">₦{tier.amount.toLocaleString()}/referral</p>
+                  <p className="text-2xl font-bold text-primary">₦{tier.amount.toLocaleString()}</p>
+                  <p className="text-xs text-muted-foreground mt-1">Upgrade cost</p>
                 </div>
                 <TrendingUp className="w-8 h-8 text-secondary" />
               </div>
@@ -99,7 +101,7 @@ const Upgrade = () => {
               <div className="space-y-3 mb-4">
                 <div className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm">Earn ₦{tier.amount.toLocaleString()} per referral</p>
+                  <p className="text-sm">Withdraw anytime without referral requirements</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
@@ -107,7 +109,7 @@ const Upgrade = () => {
                 </div>
                 <div className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm">Priority support</p>
+                  <p className="text-sm">Priority support & fast processing</p>
                 </div>
               </div>
 
