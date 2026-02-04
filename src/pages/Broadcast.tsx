@@ -53,7 +53,16 @@ const Invest = () => {
 
   const handleInvestNow = (plan: InvestmentPlan) => {
     // Navigate to payment page with the exact amount for the chosen plan
-    navigate("/invest-payment", { state: plan });
+    // Pass only serializable data (exclude JSX icon element)
+    navigate("/invest-payment", { 
+      state: {
+        name: plan.name,
+        investment: plan.investment,
+        returns: plan.returns,
+        duration: plan.duration,
+        color: plan.color
+      }
+    });
   };
 
   return (
