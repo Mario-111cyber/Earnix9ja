@@ -30,18 +30,6 @@ const Tasks = () => {
       description: "Join our TikTok community for exclusive content!",
       reward: "₦5,000",
     },
-        {
-      id: 4,
-      title: "Daily Check-in",
-      description: "Come back every day and claim your reward!",
-      reward: "₦15,000",
-    },
-        {
-      id: 5,
-      title: "Daily Check-in",
-      description: "Come back every day and claim your reward!",
-      reward: "₦15,000",
-    },
   ];
 
   // Check if task was claimed today
