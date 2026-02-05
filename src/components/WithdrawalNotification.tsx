@@ -53,7 +53,7 @@ export const WithdrawalNotification = () => {
   if (!visible) return null;
 
   return (
-    <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-top duration-300">
+    <div className="fixed top-18 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-top duration-300">
       <Card className="bg-gradient-to-r from-green-500/95 to-emerald-500/95 backdrop-blur-lg border-green-400/50 shadow-lg">
         <div className="flex items-center gap-3 px-4 py-3">
           <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">

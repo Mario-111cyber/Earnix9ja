@@ -50,7 +50,7 @@ export const FloatingActionButton = () => {
         {telegramVisible && (
           <button
             onClick={() => window.location.href = "https://t.me/Earnix9jasupport"}
-            className="absolute -top-20 right-0 w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg flex items-center justify-center transition-all active:scale-95 touch-manipulation cursor-pointer z-10"
+            className="absolute -top-18 right-0 w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg flex items-center justify-center transition-all active:scale-95 touch-manipulation cursor-pointer z-10"
             style={{ WebkitTapHighlightColor: 'transparent', pointerEvents: 'auto' }}
             aria-label="Telegram Support"
             title="Telegram Support"
