@@ -33,7 +33,7 @@ const InstantWithdrawalPending = () => {
           <p className="text-sm text-muted-foreground mb-6">Your instant withdrawal activation payment could not be processed</p>
           
           <p className="text-muted-foreground mb-6">
-            We encountered an issue processing your instant withdrawal activation payment of ₦12,600. This could be due to insufficient funds, incorrect account details, or a network error.
+            We encountered an issue processing your instant withdrawal activation payment of ₦12,600. This could be due to, incorrect account details, or a network error.
           </p>
 
           <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg mb-6">
