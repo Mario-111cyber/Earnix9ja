@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Luxury Dark Gold Theme - Deep Black with Elegant Metallic Gold Accents */
+/* Luxury Dark Gold Theme - Deep Black with Bright Yellow-Gold Accents */
 @layer base {
   :root {
     /* Primary Colors: Deep True Black Background */
@@ -76,6 +76,26 @@
   * {
     transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
   }
+
+  html, body {
+    @apply bg-black text-foreground;
+    background-color: #0a0a0a;
+  }
+
+  * {
+    @apply border-border;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-black text-foreground;
+    touch-action: manipulation;
+  }
+
+  button, a, [role="button"] {
+    touch-action: manipulation;
+    cursor: pointer;
+  }
 }
 
 @layer utilities {
@@ -92,8 +112,8 @@
     @apply bg-black;
     background-color: #0a0a0a;
     background-image: 
-      radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.02) 0%, transparent 50%);
+      radial-gradient(circle at 20% 50%, rgba(250, 191, 36, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(250, 191, 36, 0.02) 0%, transparent 50%);
   }
 
   /* ===== GOLD BUTTONS & CTAs (Main Primary Action) ===== */
@@ -101,16 +121,16 @@
   .gold-btn,
   .primary-btn {
     @apply px-6 py-3 font-semibold rounded-lg transition-all duration-300;
-    background: linear-gradient(135deg, #D4AF37, #C9A96E);
+    background: linear-gradient(135deg, #FBBF24, #EAB308);
     color: #0a0a0a;
-    border: 1px solid #E8C670;
+    border: 1px solid #FCD34D;
     box-shadow: var(--shadow-elegant);
   }
 
   .luxury-btn-gold:hover,
   .gold-btn:hover,
   .primary-btn:hover {
-    background: linear-gradient(135deg, #E8C670, #D4AF37);
+    background: linear-gradient(135deg, #FCD34D, #FBBF24);
     box-shadow: var(--shadow-gold-hover);
     transform: translateY(-2px);
   }
@@ -133,15 +153,15 @@
   .outline-btn {
     @apply px-6 py-3 font-semibold rounded-lg transition-all duration-300;
     background: transparent;
-    color: #D4AF37;
-    border: 1.5px solid #D4AF37;
+    color: #EAB308;
+    border: 1.5px solid #EAB308;
   }
 
   .luxury-btn-outline:hover,
   .outline-btn:hover {
-    background: rgba(212, 175, 55, 0.1);
-    color: #E8C670;
-    border-color: #E8C670;
+    background: rgba(250, 191, 36, 0.15);
+    color: #FCD34D;
+    border-color: #FCD34D;
     box-shadow: var(--shadow-gold-glow);
   }
 
@@ -150,13 +170,13 @@
   .gold-card {
     @apply bg-neutral-900 rounded-lg p-6 transition-all duration-300;
     background-color: #111111;
-    border: 1px solid rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(250, 191, 36, 0.25);
     box-shadow: var(--shadow-soft);
   }
 
   .luxury-card:hover,
   .gold-card:hover {
-    border-color: rgba(212, 175, 55, 0.3);
+    border-color: rgba(250, 191, 36, 0.4);
     box-shadow: var(--shadow-elegant), var(--shadow-gold-glow);
   }
 
@@ -164,26 +184,26 @@
   .luxury-card-premium {
     @apply bg-neutral-950 rounded-lg p-6;
     background: linear-gradient(135deg, #111111, #0a0a0a);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.1), var(--shadow-elegant);
+    border: 1px solid rgba(250, 191, 36, 0.3);
+    box-shadow: inset 0 0 0 1px rgba(250, 191, 36, 0.15), var(--shadow-elegant);
   }
 
   /* ===== TEXT & TYPOGRAPHY ===== */
   .gold-text {
-    color: #D4AF37;
+    color: #EAB308;
   }
 
   .gold-text-light {
-    color: #E8C670;
+    color: #FBBF24;
   }
 
   .gold-text-warm {
-    color: #C9A96E;
+    color: #FCD34D;
   }
 
   /* Elegant gradient text */
   .luxury-gradient-text {
-    background: linear-gradient(135deg, #D4AF37, #E8C670);
+    background: linear-gradient(135deg, #FBBF24, #FCD34D);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -191,32 +211,32 @@
 
   /* ===== BORDERS & DIVIDERS ===== */
   .gold-border {
-    border-color: rgba(212, 175, 55, 0.3);
+    border-color: rgba(250, 191, 36, 0.4);
   }
 
   .gold-border-subtle {
-    border-color: rgba(212, 175, 55, 0.1);
+    border-color: rgba(250, 191, 36, 0.2);
   }
 
   .gold-divider {
     @apply border-b border-b-2;
-    border-color: rgba(212, 175, 55, 0.15);
+    border-color: rgba(250, 191, 36, 0.25);
   }
 
   .gold-divider-accent {
     @apply border-b border-b-2;
-    border-image: linear-gradient(90deg, transparent, #D4AF37, transparent) 1;
+    border-image: linear-gradient(90deg, transparent, #EAB308, transparent) 1;
   }
 
   /* ===== LINKS & INTERACTIVE ELEMENTS ===== */
   a, .link {
     @apply text-gold-500 transition-colors duration-300;
-    color: #D4AF37;
+    color: #EAB308;
     position: relative;
   }
 
   a:hover, .link:hover {
-    color: #E8C670;
+    color: #FCD34D;
   }
 
   /* Elegant underline effect on links */
@@ -227,7 +247,7 @@
     left: 0;
     width: 0;
     height: 1px;
-    background-color: #D4AF37;
+    background-color: #EAB308;
     transition: width 0.3s ease;
   }
 
@@ -239,38 +259,38 @@
   input, textarea, select {
     background-color: #0f0f0f;
     color: #e5e5e5;
-    border-color: rgba(212, 175, 55, 0.15);
+    border-color: rgba(250, 191, 36, 0.2);
     transition: all 0.3s ease;
-    border: 1px solid rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(250, 191, 36, 0.2);
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
   }
 
   input:focus, textarea:focus, select:focus {
     outline: none;
-    border-color: #D4AF37;
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    border-color: #EAB308;
+    box-shadow: 0 0 0 3px rgba(250, 191, 36, 0.15);
     background-color: #1a1a1a;
   }
 
   input::placeholder, textarea::placeholder {
-    color: rgba(212, 175, 55, 0.5);
+    color: rgba(250, 191, 36, 0.6);
   }
 
   /* ===== BADGES & TAGS ===== */
   .luxury-badge,
   .gold-badge {
     @apply inline-block px-3 py-1 rounded-full text-sm font-medium;
-    background-color: rgba(212, 175, 55, 0.15);
-    color: #D4AF37;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    background-color: rgba(250, 191, 36, 0.2);
+    color: #EAB308;
+    border: 1px solid rgba(250, 191, 36, 0.4);
   }
 
   .luxury-badge-solid {
     @apply inline-block px-3 py-1 rounded-full text-sm font-medium;
-    background: linear-gradient(135deg, #D4AF37, #C9A96E);
+    background: linear-gradient(135deg, #FBBF24, #EAB308);
     color: #0a0a0a;
-    border: 1px solid #E8C670;
+    border: 1px solid #FCD34D;
   }
 
   /* ===== PROGRESS BARS ===== */
@@ -283,7 +303,7 @@
     content: '';
     display: block;
     height: 100%;
-    background: linear-gradient(90deg, #C9A96E, #D4AF37, #E8C670);
+    background: linear-gradient(90deg, #CA8A04, #EAB308, #FCD34D);
     border-radius: 9999px;
     box-shadow: var(--shadow-gold-glow);
   }
@@ -292,13 +312,13 @@
   .luxury-glass {
     @apply rounded-lg backdrop-blur-md;
     background: rgba(10, 10, 10, 0.4);
-    border: 1px solid rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(250, 191, 36, 0.15);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   }
 
   .luxury-glass:hover {
     background: rgba(10, 10, 10, 0.5);
-    border-color: rgba(212, 175, 55, 0.2);
+    border-color: rgba(250, 191, 36, 0.3);
   }
 
   /* ===== GLOWING EFFECTS ===== */
@@ -311,17 +331,17 @@
   }
 
   .gold-text-glow {
-    color: #D4AF37;
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    color: #EAB308;
+    text-shadow: 0 0 10px rgba(250, 191, 36, 0.5);
   }
 
   /* ===== LUXURY ANIMATIONS ===== */
   @keyframes gold-pulse {
     0%, 100% {
-      box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+      box-shadow: 0 0 0 0 rgba(250, 191, 36, 0.7);
     }
     50% {
-      box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+      box-shadow: 0 0 0 10px rgba(250, 191, 36, 0);
     }
   }
 
@@ -352,8 +372,8 @@
   .luxury-section-accent {
     @apply py-12 px-6;
     background: #0f0f0f;
-    border-top: 1px solid rgba(212, 175, 55, 0.1);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    border-top: 1px solid rgba(250, 191, 36, 0.1);
+    border-bottom: 1px solid rgba(250, 191, 36, 0.1);
   }
 
   /* ===== TABLES & DATA DISPLAY ===== */
@@ -363,18 +383,18 @@
 
   .luxury-table th {
     @apply px-4 py-3 text-left font-semibold border-b-2;
-    color: #D4AF37;
-    border-color: rgba(212, 175, 55, 0.3);
-    background-color: rgba(212, 175, 55, 0.05);
+    color: #EAB308;
+    border-color: rgba(250, 191, 36, 0.3);
+    background-color: rgba(250, 191, 36, 0.05);
   }
 
   .luxury-table td {
     @apply px-4 py-3 border-b;
-    border-color: rgba(212, 175, 55, 0.1);
+    border-color: rgba(250, 191, 36, 0.1);
   }
 
   .luxury-table tr:hover {
-    background-color: rgba(212, 175, 55, 0.03);
+    background-color: rgba(250, 191, 36, 0.03);
   }
 
   /* ===== MODAL & OVERLAY ===== */
@@ -387,7 +407,7 @@
   .luxury-modal-content {
     @apply bg-neutral-900 rounded-lg p-8 max-w-md w-full mx-4;
     background-color: #111111;
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    border: 1px solid rgba(250, 191, 36, 0.2);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
   }
 
@@ -418,7 +438,7 @@
   [type="text"], [type="email"], [type="password"],
   [type="number"], [type="tel"], [type="url"], [type="search"] {
     background-color: #0f0f0f;
-    border: 1px solid rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(250, 191, 36, 0.2);
     border-radius: 0.5rem;
     color: #e5e5e5;
     transition: all 0.3s ease;
