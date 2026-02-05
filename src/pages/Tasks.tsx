@@ -11,6 +11,27 @@ const Tasks = () => {
 
   const tasks = [
     {
+      id: 4,
+      title: "Join Telegram Channel",
+      description: "Join our official Telegram channel for updates",
+      reward: "₦5,000",
+      link: "https://otieu.com/4/10573002",
+    },
+    {
+      id: 5,
+      title: "Join Telegram Channel",
+      description: "Join our official Telegram channel for updates",
+      reward: "₦5,000",
+      link: "https://otieu.com/4/10573002",
+    },
+    {
+      id: 6,
+      title: "Join Telegram Channel",
+      description: "Join our official Telegram channel for updates",
+      reward: "₦5,000",
+      link: "https://www.effectivegatecpm.com/vmv8q8003e?key=86df7f349a5444d876061f4d1430b01c",
+    },
+    {
       id: 1,
       title: "Join Telegram Channel",
       description: "Join our official Telegram channel for updates",
