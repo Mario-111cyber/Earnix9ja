@@ -77,13 +77,20 @@ const Upgrade = () => {
             <p className="text-sm text-yellow-400/70 mb-4">UPGRADE</p>
             <p className="text-sm text-muted-foreground mb-2">Unlock Premium Features</p>
             <p className="text-xl font-bold gradient-text mb-3">Withdraw Without Referral Requirements</p>
-            <p className="text-sm text-muted-foreground">Upgrade your account to access withdrawal privileges regardless of referral status</p>
+             <p className="text-xl font-bold gradient-text mb-3">Upgrade allows you to earn more on each referral than regular members </p>
           </div>
         </Card>
 
         {/* Upgrade Tiers */}
         <div className="space-y-4">
-          {upgradeTiers.map((tier) => (
+          {upgradeTiers.map((tier, index) => {
+            const earningsByTier = [
+              "Earn ₦15,000 per each referral",
+              "Earn ₦25,000 per each referral",
+              "Earn ₦35,000 per each referral",
+              "Earn ₦45,000 per each referral"
+            ];
+            return (
             <Card
               key={tier.level}
               className="bg-gradient-to-br from-card via-amber-950/20 to-card/80 backdrop-blur-lg border-yellow-600/30 p-6 hover:border-yellow-500/60 transition-all shadow-lg shadow-yellow-500/10"
@@ -102,7 +109,7 @@ const Upgrade = () => {
               <div className="space-y-3 mb-4">
                 <div className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm">Withdraw anytime without referral requirements</p>
+                  <p className="text-sm">{earningsByTier[index]}</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
@@ -126,7 +133,8 @@ const Upgrade = () => {
                 </Button>
               </div>
             </Card>
-          ))}
+            );
+          })}
         </div>
       </div>
 
