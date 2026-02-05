@@ -458,7 +458,7 @@ const Dashboard = () => {
       {/* Telegram Support Button */}
       <button
         onClick={() => window.location.href = "https://t.me/Earnix9jasupport"}
-        className="fixed bottom-24 left-6 z-50 w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg flex items-center justify-center transition-all active:scale-95 touch-manipulation cursor-pointer"
+        className="fixed bottom-[100px] left-6 z-50 w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg flex items-center justify-center transition-all active:scale-95 touch-manipulation cursor-pointer"
         style={{ WebkitTapHighlightColor: 'transparent' }}
         aria-label="Telegram Support"
         title="Telegram Support"
