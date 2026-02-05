@@ -117,7 +117,7 @@ export const WelcomeModal = () => {
                   <Users className="w-5 h-5 text-primary" />
                   <div>
                     <p className="font-semibold">Referrals</p>
-                    <p className="text-xs text-muted-foreground">Earn ₦12,000 per referral</p>
+                    <p className="text-xs text-muted-foreground">Earn ₦15,000 per referral</p>
                   </div>
                 </div>
 
