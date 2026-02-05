@@ -13,7 +13,7 @@ const Upgrade = () => {
   const [loading, setLoading] = useState(true);
 
   const upgradeTiers = [
-    { level: "Tier 2", amount: 18000, price: 18000, color: "from-gray-400 to-gray-600" },
+    { level: "Tier 2", amount: 15000, price: 15000, color: "from-gray-400 to-gray-600" },
     { level: "Tier 3", amount: 25000, price: 25000, color: "from-yellow-400 to-yellow-600" },
     { level: "Tier 4", amount: 35000, price: 35000, color: "from-blue-400 to-blue-600" },
     { level: "Tier 5", amount: 40000, price: 40000, color: "from-purple-400 to-purple-600" },
