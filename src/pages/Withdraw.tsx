@@ -184,7 +184,7 @@ const Withdraw = () => {
               onClick={handleWithdrawWithoutReferral}
               className="w-full bg-gradient-to-r from-secondary to-primary hover:opacity-90"
             >
-              Withdraw Without Referral
+              Withdraw Without Invitees
             </Button>
           </div>
 
